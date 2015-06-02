@@ -1,16 +1,15 @@
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 `instevalR` is an R package under construction that is useful for people doing course evaluations (at universities, e.g., U Mannheim) with the software InstEvaL (<https://insteval.uni-mannheim.de>). The package has functions to combine the results of multiple course evaluations (e.g., different courses or cohorts of a single instructor) and to plot those results.
 
-In order to use this package, you need three things: - The *.csv-files of your course evaluations, which you can downlaod from insteval (-\> Results -\> Raw data). Please save all your *.csv-files in a single directory. - R (which you can download from <http://www.r-project.org>) - The package `instevalR`
+In order to use this package, you need three things:
+
+1.  The *.csv-files of your course evaluations, which you can downlaod from insteval (-\> Results -\> Raw data). Please save all your *.csv-files in a single directory.
+2.  R (which you can download from <http://www.r-project.org>)
+3.  The package `instevalR`
 
 The easiest way to install the package `instevalR` is the following:
 
 ``` r
-knitr::opts_chunk$set(
-  collapse = TRUE,
-  comment = "#>",
-  fig.path = "README-"
-)
 install.packages("devtools")                      # if it's not already installed
 devtools::install_github("hplieninger/instevalR")
 ```
@@ -18,11 +17,6 @@ devtools::install_github("hplieninger/instevalR")
 After you have your \*.csv-files, R, and the package, you can get started:
 
 ``` r
-knitr::opts_chunk$set(
-  collapse = TRUE,
-  comment = "#>",
-  fig.path = "README-"
-)
 library("instevalR")                               # load in every new R session
 dat.1 <- read_eval("path/to/directory")            # read-in raw data
 res.1 <- comb_eval(dat.1)                          # combine into single object
