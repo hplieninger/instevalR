@@ -7,7 +7,6 @@
 #' @return Returns a list of data frames, one for each *.csv-file.
 #' @export
 #' @importFrom reshape2 dcast
-#' @
 #' @examples
 #' \dontrun{
 #' dat.1 <- read_eval("./data/")            # read all files
