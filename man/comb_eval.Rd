@@ -14,10 +14,10 @@ comb_eval(dat, id)
 \value{
 Returns a list of five elements:
 \describe{
- \item{mean}{For each scale, the mean across all participants}
- \item{sd}{For each scale, the SD across all participants}
- \item{se}{For each scale, the SE across all participants}
- \item{N}{For each CE, the number of participants}
+ \item{mean}{For each scale and each course evaluation, the mean across all participants}
+ \item{sd}{For each scale and each course evaluation, the SD across all participants}
+ \item{se}{For each scale and each course evaluation, the SE across all participants}
+ \item{N}{For each course evaluation, the number of participants}
  \item{labels}{For each scale, its label}
 }
 }

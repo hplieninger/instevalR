@@ -24,23 +24,22 @@ comb_eval <- function(dat, id) {
     if (missing(id)) id <- 1:length(dat)
     dat <- dat[id]
 
-    # labels <- read.csv("./../06_FSS-2015/Testtheorie/Evaluation/InstEvaL-vlg_11935/InstEvaL-Rohdaten-vlg_11935-fragen_liste.csv", sep = ";", header = T)
-    # labels <- read.csv("./../06_FSS-2015/Testtheorie/Evaluation/InstEvaL-vlg_11935/labels.csv", sep = ";", header = T)
+    # labels <- read.csv("~/Teaching/Evaluation/instevalR/data-raw/labels.csv", sep = ";", header = T)
     labels.2 <- labels[, c("nummer", "scale")]
     scale <- as.character(labels$thema)
-    scale[scale == "Gesamtbewertung"] <- c("Ges_Didaktische Fähigkeiten",
-                                           "Ges_Note Dozent",
-                                           "Ges_Note LV",
-                                           "Ges_Vergleich mit anderen LVn")
-    scale[scale == "Rahmenbedingungen"] <- paste0("Rahmenbedingungen", 101:111)
-    scale[scale == "Referate"] <- paste0("Referate", 1:6)
-    scale <- gsub(" ", ".", scale)
-
-    labels.2 <- data.frame(nummer = labels$nummer
-                           , scale = factor(scale)
-                           , thema = labels$thema
-                           , text = labels$text
-    )
+#     scale[scale == "Gesamtbewertung"] <- c("Ges_Didaktische Fähigkeiten",
+#                                            "Ges_Note Dozent",
+#                                            "Ges_Note LV",
+#                                            "Ges_Vergleich mit anderen LVn")
+#     scale[scale == "Rahmenbedingungen"] <- paste0("Rahmenbedingungen", 101:111)
+#     scale[scale == "Referate"] <- paste0("Referate", 1:6)
+#     scale <- gsub(" ", ".", scale)
+#
+#     labels.2 <- data.frame(nummer = labels$nummer
+#                            , scale = factor(scale)
+#                            , thema = labels$thema
+#                            , text = labels$text
+#     )
     file.names <- names(dat)
 
     #####################
@@ -63,19 +62,19 @@ comb_eval <- function(dat, id) {
         data.frame(t(apply(x, 2, sd, na.rm = T)))
     }))
     dat.se <- rbind.fill(lapply(dat.5, function(x) {
-        data.frame(t(apply(x, 2, sd, na.rm = T)))/nrow(x)
+        data.frame(t(apply(x, 2, sd, na.rm = T)))/sqrt(nrow(x))
     }))
     row.names(dat.m) <- row.names(dat.sd) <- row.names(dat.se) <- file.names
 
     x1 <- c(grep("Ges", colnames(dat.m)),
-            grep("Ref", colnames(dat.m)),
             grep("Rahm", colnames(dat.m)),
+            grep("Ref", colnames(dat.m)),
             grep("Sonst_", colnames(dat.m)))
     x2 <- (1:ncol(dat.m))[!(1:ncol(dat.m) %in% x1)]
     x3 <- c(grep("Ges", colnames(dat.m)),
             x2,
-            grep("Ref", colnames(dat.m)),
             grep("Rahm", colnames(dat.m)),
+            grep("Ref", colnames(dat.m)),
             grep("Sonst_", colnames(dat.m)))
     dat.m <- dat.m[, x3]
     dat.sd <- dat.sd[, x3]
