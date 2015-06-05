@@ -3,5 +3,4 @@
 export(comb_eval)
 export(read_eval)
 importFrom(plyr,ddply)
-importFrom(plyr,rbind.fill)
-importFrom(reshape2,ddply)
+importFrom(reshape2,dcast)
