@@ -4,23 +4,31 @@
 \alias{read_eval}
 \title{Read insteval data from directory}
 \usage{
-read_eval(directory, id)
+read_eval(directory, id, return_long = TRUE)
 }
 \arguments{
-\item{directory}{Character string of path name, where the *.csv-files are stored.}
+\item{directory}{Character string of path name, where the *.csv-files are
+stored. (The files probably have a name like
+'InstEvaL-Rohdaten-vlg_XXXXX-evaluationen.csv', make sure to put only those
+files in the directory and no other files.)}
 
 \item{id}{Optional numeric vector identifying a subset of files, which should be read.}
+
+\item{return_long}{Logical. If this is set to \code{TRUE} (the default), data
+is returned as a single data frame in 'long' format (subesquently required
+for \code{\link{comb_eval}}). Nothing else implemented so far.
+returned.}
 }
 \value{
-Returns a list of data frames, one for each *.csv-file.
+Returns the data from all *.csv-file in one object.
 }
 \description{
-Reads all *.csv-files from a given directory and returns all content in a single list.
+Reads all *.csv-files from a given directory and returns all content in a single object.
 }
 \examples{
 \dontrun{
-dat.1 <- read_eval("./data/")            # read all files
-dat.1 <- read_eval("./data/", id = 1:5)  # read first 5 files (sorted by file name)
+dat.1 <- read_eval("./data/")               # read all files
+dat.1 <- read_eval("./data/", id = 1:5)     # read first 5 files
 }
 }
 
