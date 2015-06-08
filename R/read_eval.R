@@ -9,7 +9,7 @@
 #' @param id Optional numeric vector identifying a subset of files, which should be read.
 #' @param return_long Logical. If this is set to \code{TRUE} (the default), data
 #'   is returned as a single data frame in 'long' format (subesquently required
-#'   for \code{\link{comb_eval}}). Nothing else implemented so far.
+#'   for \code{\link{aggregate_eval}}). Nothing else implemented so far.
 #'   returned.
 #' @return Returns the data from all *.csv-file in one object.
 #' @export

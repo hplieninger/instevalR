@@ -1,4 +1,4 @@
-id;text;thema;nummer;short_version_num;invers;referat;topic;scale;labels
+id;text;thema;number;short_version_num;invers;referat;topic;scale;labels
 1;Es wurde zuviel Stoff behandelt.;Angemessener Arbeitsaufwand;7;0;1;0;Lehrveranstaltung;Angemessener.Arbeitsaufwand;Angemessener Arbeitsaufwand
 2;Der Arbeitsaufwand für die Lehrveranstaltung war sehr groß.;Angemessener Arbeitsaufwand;9;0;1;0;Lehrveranstaltung;Angemessener.Arbeitsaufwand;Angemessener Arbeitsaufwand
 3;Um der Lehrveranstaltung zu folgen, war viel zusätzliche Arbeit nötig.;Angemessener Arbeitsaufwand;20;9;1;0;Lehrveranstaltung;Angemessener.Arbeitsaufwand;Angemessener Arbeitsaufwand
