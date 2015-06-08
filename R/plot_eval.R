@@ -1,23 +1,42 @@
-setwd("~/Teaching/Evaluation/")
-
-# dat.1 <- read_eval("C:/Users/plieninger/Documents/Teaching/Evaluation/Daten/")
-dat.1 <- read_eval("~/Teaching/Evaluation/Daten/")
-res.1 <- comb_eval(dat.1)
-res.1$mean
-
-
-library("Hmisc")
-library("RColorBrewer")
-# display.brewer.all(n = 4, type = "qual")
-# display.brewer.all(n = 4, type = "div")
-# display.brewer.pal(n = 4, "Set1")
-# cols <- brewer.pal(4, "Set1")
-cols <- brewer.pal(4, "Spectral")
-
-
-plot_eval <- function(x, error_bars = TRUE, ci = .95, plottype = 1, pdf = FALSE,
-                      xlabels = NULL, type = "b", lwd = 3, alpha = .25,
-                      ylim = NULL, col.axis = "salmon", subscale = NULL) {
+#' Plot multiple course evalautions
+#'
+#' This function takes as input the output from \link{\code{aggregate_eval}} and plots the results.
+#'
+#' @param x List of data frames as returned from \link{\code{aggregate_eval}}.
+#' @param plottype Integer between \code{1} and \code{4}, selects the type of plot(s):
+#' \describe{
+#'  \item{\code{plottype = 1}}{1 plot of 4 variables, i.e., the first four scales of "Gesamtbewertung"}
+#'  \item{\code{plottype = 2}}{1 plot of 1 variable, i.e., the scale "5: Gesamt"}
+#'  \item{\code{plottype = 3}}{33 plots of all 33 variables arranged in 7 plot windows}
+#'  \item{\code{plottype = 4}}{1 plot of a single, user-seleted variable, see \code{subscale}}
+#' }
+#' @param subscale Integer indicating the number of the scale to be plotted (if \code{plottype = 4}).
+#' @param error_bars Logical indicating whether error bars representing a confidence interval should be plotted or not.
+#' @param ci Numeric. Confidence level, usually .95 (or .90) for a 95\% CI.
+#' @param pdf Logical. If \code{TRUE}, the plots are written to a pdf-file.
+#' @param xlabels Optional character vector with the labels of the tick marks of the x-axis, typically names of courses/semester. If \code{NULL}, this is borrowed from the names of the *.csv-files.
+#' @param alpha
+#' @param col.axis
+#' @inheritParams plot.default
+#' @return Returns a list of five elements:
+#' \describe{
+#'  \item{mean}{For each scale and each course evaluation, the mean across all participants}
+#'  \item{sd}{For each scale and each course evaluation, the SD across all participants}
+#'  \item{se}{For each scale and each course evaluation, the SE across all participants}
+#'  \item{N}{For each course evaluation, the number of participants}
+#'  \item{varnames}{For each scale, its label}
+#' }
+#' @export
+#' @importFrom plyr ddply
+#' @importFrom reshape2 dcast
+#' @examples
+#' \dontrun{
+#' dat.1 <- read_eval("./data/")            # read all files
+#' res.1 <- comb_eval(dat.1)                # combine results for plotting
+#' }
+plot_eval <- function(x, plottype = 1, subscale = NULL, error_bars = TRUE, ci = .95,
+                      pdf = FALSE, type = "b", lwd = 3, ylim = NULL,
+                      xlabels = NULL, alpha = .25, col.axis = "salmon") {
     opar <- par(no.readonly = TRUE)
     if (missing(xlabels)) xlabels = rownames(x$mean)
     # cols <- c("#D7191C", "#FDAE61", "#ABDDA4", "#2B83BA")
@@ -49,7 +68,7 @@ plot_eval <- function(x, error_bars = TRUE, ci = .95, plottype = 1, pdf = FALSE,
                        errbar.col = cols(ii, alpha = alpha), type = "n", add = T, lwd = lwd)
             }
         }
-        legend("topleft", legend = x$labels[grep("Ges_", colnames(x$mean))],
+        legend("topleft", legend = x$varnames[grep("Ges_", colnames(x$mean))],
                col = cols(1:4), lwd = lwd, bty = "n")
     }
     if (plottype == 2) {
@@ -67,7 +86,7 @@ plot_eval <- function(x, error_bars = TRUE, ci = .95, plottype = 1, pdf = FALSE,
 
         lines(1:nrow(x$mean), x$mean[, grep("Gesamt", colnames(x$mean))],
               lwd = lwd, type = type, pch = 20)
-        title(main = x$labels[grep("Gesamt", colnames(x$mean))])
+        title(main = x$varnames[grep("Gesamt", colnames(x$mean))])
         if (error_bars == TRUE) {
             errbar(x = 1:nrow(x$mean), y = x$mean[, grep("Gesamt", colnames(x$mean))],
                    yplus  = x$mean[, grep("Gesamt", colnames(x$mean))] + qnorm((1-ci)/2 + ci)*x$se[, grep("Gesamt", colnames(x$mean))],
@@ -110,7 +129,7 @@ plot_eval <- function(x, error_bars = TRUE, ci = .95, plottype = 1, pdf = FALSE,
             text(cex=1, x = 1:6, y =  1 - ymax[ii]*12^-1, labels = xlabels, xpd=T, srt=45, adj = 1)
             lines(1:nrow(x$mean), x$mean[, ii],
                   col = cols(5), lwd = lwd, type = "b", pch = 20)
-            title(main = x$labels[ii])
+            title(main = x$varnames[ii])
             if (error_bars == TRUE) {
                 errbar(x = 1:nrow(x$mean), y = x$mean[, ii],
                        yplus  = x$mean[, ii] + qnorm((1-ci)/2 + ci)*x$se[, ii],
@@ -134,7 +153,7 @@ plot_eval <- function(x, error_bars = TRUE, ci = .95, plottype = 1, pdf = FALSE,
 
         lines(1:nrow(x$mean), x$mean[, subscale],
               lwd = lwd, type = type, pch = 20)
-        title(main = x$labels[subscale])
+        title(main = x$varnames[subscale])
         if (error_bars == TRUE) {
             errbar(x = 1:nrow(x$mean), y = x$mean[, subscale],
                    yplus  = x$mean[, subscale] + qnorm((1-ci)/2 + ci)*x$se[, subscale],
@@ -146,142 +165,3 @@ plot_eval <- function(x, error_bars = TRUE, ci = .95, plottype = 1, pdf = FALSE,
         dev.off()
     } else par(opar)
 }
-
-
-
-
-plot_eval(res.1, plottype = 3, error_bars = T, pdf = F)
-
-plot_eval(res.1, plottype = 2, pdf = T)
-plot_eval(res.1, plottype = 4, pdf = F, subscale = 1)
-
-plot_eval(res.1, plottype = 1, error_bars = T, pdf = T)
-plot_eval(res.1, plottype = 2, type = "p", error_bars = F)
-
-
-
-plot.new()
-plot.window(xlim = c(1, nrow(x$mean)), ylim = c(1, 3))
-axis(side = 2)
-# axis(side = 1, at = 1:nrow(x$mean), labels = xlables)
-axis(side = 1, at = 1:nrow(x$mean), labels = F)
-text(cex=1, x = 1:6, y = .8, labels = xlabels, xpd=T, srt=45, adj = 1)
-errbar(x = 1:6, y = res.1[[1]][, "Ges_Didaktische.Fähigkeiten"],
-       yplus = res.1[[1]][, "Ges_Didaktische.Fähigkeiten"] + 1.96*res.1[[3]][, "Ges_Didaktische.Fähigkeiten"],
-       yminus = res.1[[1]][, "Ges_Didaktische.Fähigkeiten"] - 1.96*res.1[[3]][, "Ges_Didaktische.Fähigkeiten"],
-       add = T, col = cols[1], errbar.col = cols[1], type = "b")
-
-
-
-
-
-
-
-
-
-
-
-plot.new()
-plot.window(xlim = c(1, nrow(res.1$mean)), ylim = c(1, 3))
-axis(side = 2)
-axis(side = 1, at = 1:nrow(res.1$mean))
-
-for (ii in 1:5) {
-    lines(1:6, res.1[, ii + 4], col = cols[ii], lwd = 3, type = "b", pch = 20)
-}
-# legend("topleft", bty = "n", legend = paste0("a = 2\nb = -3, -1, 2"))
-
-errbar(x = 1:6, y = res.1[[1]][, "Ges_Didaktische.Fähigkeiten"],
-       yplus = res.1[[1]][, "Ges_Didaktische.Fähigkeiten"] + res.1[[2]][, "Ges_Didaktische.Fähigkeiten"],
-       yminus = res.1[[1]][, "Ges_Didaktische.Fähigkeiten"] - res.1[[2]][, "Ges_Didaktische.Fähigkeiten"],
-       add = T, col = cols[1], errbar.col = cols[1])
-
-plot.new()
-plot.window(xlim = c(1, nrow(res.1[[1]])), ylim = c(1, 4))
-axis(side = 2)
-axis(side = 1, at = 1:nrow(res.1[[1]]))
-lines(1:6, res.1[[1]][, 5], col = cols[1], lwd = 3, type = "b", pch = 20)
-errbar(x = 1:6, y = res.1[[1]][, "Ges_Didaktische.Fähigkeiten"],
-       yplus = res.1[[1]][, "Ges_Didaktische.Fähigkeiten"] + 1.96*res.1[[2]][, "Ges_Didaktische.Fähigkeiten"],
-       yminus = res.1[[1]][, "Ges_Didaktische.Fähigkeiten"] - 1.96*res.1[[2]][, "Ges_Didaktische.Fähigkeiten"],
-       add = T, col = cols[1], errbar.col = cols[1])
-
-
-
-plot(res.1$Ges_Didaktische.Fähigkeiten)
-
-plot(res.1$Ges_Didaktische.Fähigkeiten, type = "b", pch = 20, ylim = c(1, 3))
-plot(res.1$Ges_Note.Dozent, type = "b", pch = 20, ylim = c(1, 3))
-plot(res.1$Ges_Note.LV, type = "b", pch = 20, ylim = c(1, 3))
-plot(res.1$Ges_Vergleich.mit.anderen.LVn, type = "b", pch = 20, ylim = c(1, 3))
-
-
-plot(res.1$`Angemessene Schwierigkeit`, type = "b", pch = 20)
-plot(res.1$Motivierung, type = "b", pch = 20)
-plot(res.1$Sympathie, type = "b", pch = 20, ylim = c(1, 3))
-plot(res.1$Sympathie, type = "b", pch = 20, ylim = c(1, 3))
-
-pdf("res.pdf", width = 8.27, height = 11.7, paper = "a4", onefile = T)
-par(mfrow = c(3, 2))
-for (ii in 1: ncol(res.1[[1]])) {
-    plot(res.1[[1]][, ii], type = "b", pch = 20, ylim = c(1, 3),
-         main = res.1$labels[ii])
-}
-dev.off()
-
-
-
-
-library(plyr)
-rbind.fill.matrix(t(x1), t(x2))
-rbind.fill(t(x1), t(x2))
-
-
-
-
-
-
-# dat.1 <- read.csv("./../02_FSS 2013/E2_Diagnostisches Praktikum II/Evaluation/InstEvaL-vlg_9677/InstEvaL-Rohdaten-vlg_9677-evaluationen.csv", sep = ";", header = F)[-1, ]
-# dat.1 <- read.csv("./../06_FSS-2015/Testtheorie/Evaluation/InstEvaL-vlg_11935/InstEvaL-Rohdaten-vlg_11935-evaluationen.csv", sep = ";", header = T,
-#                   colClasses = "integer")
-# names(dat.1) <- c("item_nr", "item_id", "id", "resp")
-# dat.2 <- reshape2::dcast(dat.1, id ~ item_id, value.var = "resp")
-# dat.3 <- dat.2[, -1]
-
-labels <- read.csv("./../06_FSS-2015/Testtheorie/Evaluation/InstEvaL-vlg_11935/InstEvaL-Rohdaten-vlg_11935-fragen_liste.csv", sep = ";", header = T)
-scale <- as.character(labels$thema)
-scale[scale == "Gesamtbewertung"] <- paste0("Gesamtbewertung", 1:4)
-scale[scale == "Rahmenbedingungen"] <- paste0("Rahmenbedingungen", 101:111)
-scale[scale == "Referate"] <- paste0("Referate", 1:6)
-
-labels.2 <- data.frame(nummer = labels$nummer,
-                       scale = factor(scale),
-                       thema = labels$thema,
-                       text = labels$text)
-
-
-
-
-dat.2 <- data.frame(nummer = colnames(dat.1), t(dat.1))
-
-dat.3 <- merge(x = dat.2, y = labels.2, by = "nummer")
-
-aggregate(dat.3[, 2:9], by = list(dat.3$scale), mean, na.rm = T)
-
-
-
-
-
-
-
-
-
-x2 <- data.frame(nummer = names(dat.3), val = colMeans(dat.3, na.rm = T))
-names(dat.3)
-x1 <- labels.2[labels.2$nummer %in% names(dat.3), ]
-x3 <- merge(x = x1, y = x2, by.x = "nummer", by.y = "nummer")
-
-aggregate(x2$val, by = list(x1$scale), mean)
-
-aggregate(t(dat.1), by = list(factor(scale)), FUN = function(x) mean(x, na.rm = T))
-aggregate(t(dat.1), by = list(factor(scale)), mean, na.rm = T)
