@@ -1,8 +1,8 @@
-#' Combine and aggregate multiple course evalautions
+#' Aggregate multiple course evalautions
 #'
 #' This function takes as input the output from \code{read_eval} and returns a list of aggregated data (e.g., means, standard errors).
 #'
-#' @param dat List of data frames as returned from \code{read_eval}
+#' @param dat Data frame as returned from \code{read_eval}
 #' @inheritParams read_eval
 #' @return Returns a list of five elements:
 #' \describe{
@@ -10,28 +10,28 @@
 #'  \item{sd}{For each scale and each course evaluation, the SD across all participants}
 #'  \item{se}{For each scale and each course evaluation, the SE across all participants}
 #'  \item{N}{For each course evaluation, the number of participants}
-#'  \item{labels}{For each scale, its label}
+#'  \item{varnames}{For each scale, its label}
 #' }
 #' @export
 #' @importFrom plyr ddply
 #' @importFrom reshape2 dcast
 #' @examples
 #' \dontrun{
-#' dat.1 <- read_eval("./data/")            # read all files
-#' res.1 <- comb_eval(dat.1)                # combine results for plotting
+#' dat.1 <- read_eval("./data/")      # read all files
+#' res.1 <- aggregate_eval(dat.1)     # aggregate results for plotting
 #' }
-comb_eval <- function(dat, id) {
+aggregate_eval <- function(dat, id) {
     if (is.data.frame(dat) != TRUE) stop("Object 'dat' must be a data frame")
     # library("plyr")
     if (missing(id)) id <- 1:length(dat)
     dat <- dat[id]
 
-    # labels <- read.csv("~/Teaching/Evaluation/instevalR/data-raw/labels.csv", sep = ";", header = T)
-    labels.2 <- labels[, c("nummer", "scale")]
-    scale <- as.character(labels$thema)
+    # varnames <- read.csv("~/Teaching/Evaluation/instevalR/data-raw/labels.csv", sep = ";", header = T)
+    scale <- as.character(varnames$thema)
+    varnames.2 <- varnames[, c("number", "scale")]
     # file.names <- names(dat)
 
-    dat <- merge(dat, labels.2, by.x = "number", by.y = "nummer")[, c(2, 3, 4, 5)]
+    dat <- merge(dat, varnames.2, by.x = "number", by.y = "number")[, c(2, 3, 4, 5)]
 
     #####################
 
@@ -44,14 +44,14 @@ comb_eval <- function(dat, id) {
     dat.se <- dat.sd / sqrt(dat.n)
 
     rownames(dat.m) <- rownames(dat.sd) <- rownames(dat.n) <- rownames(dat.se) <- levels(dat.1$file)
-    # colnames(dat.m) <- colnames(dat.sd) <- colnames(dat.n) <- colnames(dat.se) <- labels.2$scale[order(labels.2$nummer)]
+    # colnames(dat.m) <- colnames(dat.sd) <- colnames(dat.n) <- colnames(dat.se) <- varnames.2$scale[order(varnames.2$number)]
 
-    labels.2$scale[order(labels.2$nummer)]
+    varnames.2$scale[order(varnames.2$number)]
 
     #####################
 
-#     dat.2 <- lapply(dat.1, function(x) data.frame(nummer = colnames(x), t(x)))
-#     dat.3 <- lapply(dat.2, function(x) merge(x = x, y = labels.2, by = "nummer"))
+#     dat.2 <- lapply(dat.1, function(x) data.frame(number = colnames(x), t(x)))
+#     dat.3 <- lapply(dat.2, function(x) merge(x = x, y = varnames.2, by = "number"))
 #     dat.4 <- lapply(dat.3, function(x) aggregate(x[, -c(1, ncol(x))], list(x[, "scale"]), mean, na.rm = T))
 #     dat.5 <- lapply(dat.4, function(x) {
 #         y <- data.frame(t(x[, -1]))
@@ -90,5 +90,5 @@ comb_eval <- function(dat, id) {
     # N <- unlist(lapply(dat.4, ncol)) - 1
 
     return(list(mean = dat.m, sd = dat.sd, se = dat.se, N = dat.n,
-                labels = labels$labels[match(colnames(dat.m), labels.2$scale)]))
+                varnames = varnames$labels[match(colnames(dat.m), varnames.2$scale)]))
 }
