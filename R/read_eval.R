@@ -4,7 +4,7 @@
 #'
 #' @param directory Character string of path name, where the *.csv-files are
 #'   stored. (The files probably have a name like
-#'   'InstEvaL-Rohdaten-vlg_XXXXX-evaluationen.csv', make sure to put only those
+#'   "InstEvaL-Rohdaten-vlg_XXXXX-evaluationen.csv", make sure to put only those
 #'   files in the directory and no other files.)
 #' @param id Optional numeric vector identifying a subset of files, which should be used.
 #' @param return_long Logical. If this is set to \code{TRUE} (the default), data
@@ -12,13 +12,11 @@
 #'   for \code{\link{aggregate_eval}}). Nothing else implemented so far.
 #' @return Returns the data from all *.csv-file in one object.
 #' @export
-#' @importFrom plyr ddply
 #' @examples
 #' \dontrun{
 #' dat.1 <- read_eval("./data/")               # read all files
 #' dat.1 <- read_eval("./data/", id = 1:5)     # read first 5 files
 #' }
-# library("reshape2")
 read_eval <- function(directory, id, return_long = TRUE) {
 
     files <- list.files(directory, full.names = F)

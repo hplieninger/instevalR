@@ -9,7 +9,7 @@ read_eval(directory, id, return_long = TRUE)
 \arguments{
 \item{directory}{Character string of path name, where the *.csv-files are
 stored. (The files probably have a name like
-'InstEvaL-Rohdaten-vlg_XXXXX-evaluationen.csv', make sure to put only those
+"InstEvaL-Rohdaten-vlg_XXXXX-evaluationen.csv", make sure to put only those
 files in the directory and no other files.)}
 
 \item{id}{Optional numeric vector identifying a subset of files, which should be used.}

@@ -43,7 +43,7 @@ printed in a different color. Can be changed to \code{"black"} to override
 this behavior.}
 
 \item{alpha}{Numeric. Transparency value for the error bars (\code{0} means
-fully transparent and \code{1} means opaque)).}
+fully transparent and \code{1} means opaque).}
 
 \item{lwd}{The line width, a positive number.}
 

@@ -20,7 +20,7 @@
 #'   borrowed from the names of the *.csv-files.
 #' @param pdf Logical. If \code{TRUE}, the plots are written to a pdf-file.
 #' @param alpha Numeric. Transparency value for the error bars (\code{0} means
-#'   fully transparent and \code{1} means opaque)).
+#'   fully transparent and \code{1} means opaque).
 #' @param col.axis Character. If \code{plottype = 3} and \code{ylim = NULL} (its
 #'   default), most of the plots have black y-axis annotations. But some of the
 #'   plots differ in their \code{ylim}-values and their y-axis annotations are
@@ -34,8 +34,6 @@
 #' @inheritParams graphics::plot.default
 #' @param ... Other \link{graphical parameters} passed to \code{\link[graphics]{lines}} or \code{\link[graphics]{title}}.
 #' @export
-#' @importFrom Hmisc errbar
-#' @importFrom scales alpha
 #' @examples
 #' \dontrun{
 #' dat.1 <- read_eval("./data/")      # read all files

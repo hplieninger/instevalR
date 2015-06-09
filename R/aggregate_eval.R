@@ -14,8 +14,6 @@
 #'  \item{\code{varnames}: For each scale, its label}
 #' }
 #' @export
-#' @importFrom plyr ddply colwise
-#' @importFrom reshape2 dcast
 #' @examples
 #' \dontrun{
 #' dat.1 <- read_eval("./data/")      # read all files
