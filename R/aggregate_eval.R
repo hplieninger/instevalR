@@ -3,6 +3,7 @@
 #' This function takes as input the output from \code{read_eval} and returns a list of aggregated data (e.g., means, standard errors).
 #'
 #' @param dat Data frame as returned from \code{read_eval}
+#' @param language Character string specifiying the language of the variable names. Currentyl only \code{"de"} for German is implemented.
 #' @inheritParams read_eval
 #' @return Returns a list of five elements:
 #' \describe{
@@ -20,7 +21,7 @@
 #' dat.1 <- read_eval("./data/")      # read all files
 #' res.1 <- aggregate_eval(dat.1)     # aggregate results for plotting
 #' }
-aggregate_eval <- function(dat, id) {
+aggregate_eval <- function(dat, id, language = "de") {
     if (is.data.frame(dat) != TRUE) stop("Object 'dat' must be a data frame")
     # library("plyr")
     if (missing(id)) id <- 1:length(dat)
