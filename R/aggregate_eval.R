@@ -36,12 +36,12 @@ aggregate_eval <- function(dat, id, lang = "de") {
 
     #####################
 
-    dat.m <- ddply(dat, .variables = c("file", "scale"), .fun = colwise(mean, na.rm = T))
-    dat.m <- dcast(dat.m, formula = file ~ scale, value.var = "resp")[, -1]
-    dat.sd <- ddply(dat, .variables = c("file", "scale"), .fun = colwise(sd, na.rm = T))
-    dat.sd <- dcast(dat.sd, formula = file ~ scale, value.var = "resp")[, -1]
-    dat.n <- ddply(dat, .variables = c("file", "scale"), .fun = nrow)
-    dat.n <- dcast(dat.n, formula = file ~ scale, value.var = "V1")[, -1]
+    dat.m <- plyr::ddply(dat, .variables = c("file", "scale"), .fun = plyr::colwise(mean, na.rm = T))
+    dat.m <- reshape2::dcast(dat.m, formula = file ~ scale, value.var = "resp")[, -1]
+    dat.sd <- plyr::ddply(dat, .variables = c("file", "scale"), .fun = plyr::colwise(sd, na.rm = T))
+    dat.sd <- reshape2::dcast(dat.sd, formula = file ~ scale, value.var = "resp")[, -1]
+    dat.n <- plyr::ddply(dat, .variables = c("file", "scale"), .fun = nrow)
+    dat.n <- reshape2::dcast(dat.n, formula = file ~ scale, value.var = "V1")[, -1]
     dat.se <- dat.sd / sqrt(dat.n)
 
     rownames(dat.m) <- rownames(dat.sd) <- rownames(dat.n) <- rownames(dat.se) <- levels(dat$file)

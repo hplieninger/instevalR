@@ -28,6 +28,9 @@
 #'   this behavior.
 #' @param lwd The line width, a positive number.
 #' @param col Character string. The color to be used for the lines and error bars, may be a vector of length 4 if \code{plottype = 1}.
+#' @param pch Either an integer specifying a symbol or a single character to be
+#'   used as the default in plotting points. See \code{\link{points}} for possible values and
+#'   their interpretation.
 #' @inheritParams graphics::plot.default
 #' @param ... Other \link{graphical parameters} passed to \code{\link[graphics]{lines}} or \code{\link[graphics]{title}}.
 #' @export
@@ -63,7 +66,8 @@ plot_eval <- function(x, plottype = 1, subscale = NULL, error_bars = TRUE, ci = 
         r <- c(215, 253, 171, 43, 0)
         g <- c(25, 174, 221, 131, 0)
         b <- c(28, 97, 164, 186, 0)
-        return(rgb(r = r[col], g = g[col], b = b[col], a = alpha*255, maxColorValue = 255))
+        return(rgb(red = r[col], green = g[col], blue = b[col],
+                   alpha = alpha*255, maxColorValue = 255))
     }
     if (plottype == 1) {
         if (missing(ylim)) ylim <- c(1, ceiling(max(x$mean[, 1:4])))
@@ -86,10 +90,10 @@ plot_eval <- function(x, plottype = 1, subscale = NULL, error_bars = TRUE, ci = 
             lines(1:nrow(x$mean), x$mean[, grep("Ges_", colnames(x$mean))[ii]],
                   col = col[ii], lwd = lwd, type = type, pch = pch, ...)
             if (error_bars == TRUE) {
-                errbar(x = 1:nrow(x$mean), y = x$mean[, grep("Ges_", colnames(x$mean))[ii]],
+                Hmisc::errbar(x = 1:nrow(x$mean), y = x$mean[, grep("Ges_", colnames(x$mean))[ii]],
                        yplus  = x$mean[, grep("Ges_", colnames(x$mean))[ii]] + qnorm((1-ci)/2 + ci)*x$se[, grep("Ges_", colnames(x$mean))[ii]],
                        yminus = x$mean[, grep("Ges_", colnames(x$mean))[ii]] - qnorm((1-ci)/2 + ci)*x$se[, grep("Ges_", colnames(x$mean))[ii]],
-                       errbar.col = alpha(col[ii], alpha = alpha), type = "n", add = T, lwd = lwd)
+                       errbar.col = scales::alpha(col[ii], alpha = alpha), type = "n", add = T, lwd = lwd)
             }
         }
         title(main = main, ...)
@@ -115,10 +119,10 @@ plot_eval <- function(x, plottype = 1, subscale = NULL, error_bars = TRUE, ci = 
               lwd = lwd, type = type, pch = pch, col = col, ...)
         title(main = main, ...)
         if (error_bars == TRUE) {
-            errbar(x = 1:nrow(x$mean), y = x$mean[, grep("Gesamt", colnames(x$mean))],
+            Hmisc::errbar(x = 1:nrow(x$mean), y = x$mean[, grep("Gesamt", colnames(x$mean))],
                    yplus  = x$mean[, grep("Gesamt", colnames(x$mean))] + qnorm((1-ci)/2 + ci)*x$se[, grep("Gesamt", colnames(x$mean))],
                    yminus = x$mean[, grep("Gesamt", colnames(x$mean))] - qnorm((1-ci)/2 + ci)*x$se[, grep("Gesamt", colnames(x$mean))],
-                   errbar.col = alpha(col, alpha = alpha), type = "n", add = T, lwd = lwd)
+                   errbar.col = scales::alpha(col, alpha = alpha), type = "n", add = T, lwd = lwd)
         }
     }
     if (plottype == 3) {
@@ -159,10 +163,10 @@ plot_eval <- function(x, plottype = 1, subscale = NULL, error_bars = TRUE, ci = 
                   col = col, lwd = lwd, type = type, pch = pch, ...)
             title(main = x$varnames[ii], ...)
             if (error_bars == TRUE) {
-                errbar(x = 1:nrow(x$mean), y = x$mean[, ii],
+                Hmisc::errbar(x = 1:nrow(x$mean), y = x$mean[, ii],
                        yplus  = x$mean[, ii] + qnorm((1-ci)/2 + ci)*x$se[, ii],
                        yminus = x$mean[, ii] - qnorm((1-ci)/2 + ci)*x$se[, ii],
-                       errbar.col = alpha(col, alpha = alpha), type = "n", add = T, lwd = lwd)
+                       errbar.col = scales::alpha(col, alpha = alpha), type = "n", add = T, lwd = lwd)
             }
         }
     }
@@ -186,10 +190,10 @@ plot_eval <- function(x, plottype = 1, subscale = NULL, error_bars = TRUE, ci = 
               col = col, lwd = lwd, type = type, pch = pch, ...)
         title(main = main, ...)
         if (error_bars == TRUE) {
-            errbar(x = 1:nrow(x$mean), y = x$mean[, subscale],
+            Hmisc::errbar(x = 1:nrow(x$mean), y = x$mean[, subscale],
                    yplus  = x$mean[, subscale] + qnorm((1-ci)/2 + ci)*x$se[, subscale],
                    yminus = x$mean[, subscale] - qnorm((1-ci)/2 + ci)*x$se[, subscale],
-                   errbar.col = alpha(col, alpha = alpha), type = "n", add = T, lwd = lwd)
+                   errbar.col = scales::alpha(col, alpha = alpha), type = "n", add = T, lwd = lwd)
         }
     }
     if (pdf == TRUE) {

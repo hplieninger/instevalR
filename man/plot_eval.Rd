@@ -49,6 +49,10 @@ fully transparent and \code{1} means opaque)).}
 
 \item{main}{a main title for the plot, see also \code{\link{title}}.}
 
+\item{pch}{Either an integer specifying a symbol or a single character to be
+used as the default in plotting points. See \code{\link{points}} for possible values and
+their interpretation.}
+
 \item{type}{1-character string giving the type of plot desired.  The
     following values are possible, for details, see \code{\link{plot}}:
     \code{"p"} for points, \code{"l"} for lines,

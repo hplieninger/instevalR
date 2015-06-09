@@ -43,7 +43,7 @@ read_eval <- function(directory, id, return_long = TRUE) {
                             col.names = c("item_no", "number", "id", "resp"))
         dat <- rbind(dat, cbind(file = file.names[ii], dat.1[, -1]))
     }
-    x1 <- ddply(dat[dat$number %in% (1:4), ], .variables = c("file", "id"), .fun = colwise(mean, na.rm = T))
+    x1 <- plyr::ddply(dat[dat$number %in% (1:4), ], .variables = c("file", "id"), .fun = colwise(mean, na.rm = T))
     x1$number <- 53
     dat <- rbind(dat, x1)
 
