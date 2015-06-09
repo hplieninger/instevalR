@@ -6,7 +6,15 @@ output:
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-`instevalR` is an R package under construction that is useful for people doing course evaluations (at universities, e.g., U Mannheim) with the software InstEvaL (https://insteval.uni-mannheim.de). The package has functions to combine the results of multiple course evaluations (e.g., different courses or cohorts of a single instructor) and to plot those results.
+`instevalR` is an R package under construction that is useful for people doing course evaluations (at universities, e.g., U Mannheim) with the software InstEvaL (https://insteval.uni-mannheim.de). The package has functions to combine the results of multiple course evaluations (e.g., different courses/cohorts of a single instructor) and to plot those results:
+
+```{r, echo = F, eval = T}
+library("instevalR")
+set.seed(123)
+dat.x <- sim_eval(N.files = 5, N.id = 50)
+res.x <- aggregate_eval(dat.x)
+plot_eval(res.x, ylim = c(1, 3))
+```
 
 In order to use this package, you need three things:
 
@@ -24,7 +32,7 @@ After you have your *.csv-files, R, and the package, you can get started:
 ```{r, echo = T, eval = F}
 library("instevalR")                               # load in every new R session
 dat.1 <- read_eval("path/to/directory")            # read-in raw data
-res.1 <- comb_eval(dat.1)                          # combine into single object
+res.1 <- aggregate_eval(dat.1)                     # combine into single object
 plot_eval(res.1)                                   # do a plot
 ```
 
