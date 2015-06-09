@@ -1,13 +1,20 @@
 #' Plot multiple course evalautions
 #'
+<<<<<<< HEAD
 #' This function takes as input the output from \code{\link{aggregate_eval}} and plots the results.
 #'
 #' @param x List of data frames as returned from \code{\link{aggregate_eval}}.
+=======
+#' This function takes as input the output from \link{\code{aggregate_eval}} and plots the results.
+#'
+#' @param x List of data frames as returned from \link{\code{aggregate_eval}}.
+>>>>>>> e884890a94d4ee266860d96212f8ac8d134bfa86
 #' @param plottype Integer between \code{1} and \code{4}, selects the type of plot(s):
 #' \describe{
 #'  \item{\code{plottype = 1}}{1 plot of 4 variables, i.e., the first four scales of "Gesamtbewertung"}
 #'  \item{\code{plottype = 2}}{1 plot of 1 variable, i.e., the scale "5: Gesamt"}
 #'  \item{\code{plottype = 3}}{33 plots of all 33 variables arranged in 7 plot windows}
+<<<<<<< HEAD
 #'  \item{\code{plottype = 4}}{1 plot of a single, user-seleted variable (see \code{subscale})}
 #' }
 #' @param subscale Integer indicating the number of the scale to be plotted (if
@@ -56,6 +63,37 @@ plot_eval <- function(x, plottype = 1, subscale = NULL, error_bars = TRUE, ci = 
                       col = NULL, col.axis = "salmon", alpha = .25,
                       lwd = 3,  main = NULL, pch = 20, type = "b", ylim = NULL,
                       ...) {
+=======
+#'  \item{\code{plottype = 4}}{1 plot of a single, user-seleted variable, see \code{subscale}}
+#' }
+#' @param subscale Integer indicating the number of the scale to be plotted (if \code{plottype = 4}).
+#' @param error_bars Logical indicating whether error bars representing a confidence interval should be plotted or not.
+#' @param ci Numeric. Confidence level, usually .95 (or .90) for a 95\% CI.
+#' @param pdf Logical. If \code{TRUE}, the plots are written to a pdf-file.
+#' @param xlabels Optional character vector with the labels of the tick marks of the x-axis, typically names of courses/semester. If \code{NULL}, this is borrowed from the names of the *.csv-files.
+#' @param alpha
+#' @param col.axis
+#' @inheritParams plot.default
+#' @return Returns a list of five elements:
+#' \describe{
+#'  \item{mean}{For each scale and each course evaluation, the mean across all participants}
+#'  \item{sd}{For each scale and each course evaluation, the SD across all participants}
+#'  \item{se}{For each scale and each course evaluation, the SE across all participants}
+#'  \item{N}{For each course evaluation, the number of participants}
+#'  \item{varnames}{For each scale, its label}
+#' }
+#' @export
+#' @importFrom plyr ddply
+#' @importFrom reshape2 dcast
+#' @examples
+#' \dontrun{
+#' dat.1 <- read_eval("./data/")            # read all files
+#' res.1 <- comb_eval(dat.1)                # combine results for plotting
+#' }
+plot_eval <- function(x, plottype = 1, subscale = NULL, error_bars = TRUE, ci = .95,
+                      pdf = FALSE, type = "b", lwd = 3, ylim = NULL,
+                      xlabels = NULL, alpha = .25, col.axis = "salmon") {
+>>>>>>> e884890a94d4ee266860d96212f8ac8d134bfa86
     opar <- par(no.readonly = TRUE)
     if (missing(x.labels)) x.labels = rownames(x$mean)
     # cols <- c("#D7191C", "#FDAE61", "#ABDDA4", "#2B83BA")
@@ -92,9 +130,14 @@ plot_eval <- function(x, plottype = 1, subscale = NULL, error_bars = TRUE, ci = 
                        errbar.col = alpha(col[ii], alpha = alpha), type = "n", add = T, lwd = lwd)
             }
         }
+<<<<<<< HEAD
         title(main = main, ...)
         legend("topleft", legend = x$varnames[grep("Ges_", colnames(x$mean))],
                col = col, lwd = lwd, bty = "n")
+=======
+        legend("topleft", legend = x$varnames[grep("Ges_", colnames(x$mean))],
+               col = cols(1:4), lwd = lwd, bty = "n")
+>>>>>>> e884890a94d4ee266860d96212f8ac8d134bfa86
     }
     if (plottype == 2) {
         if (missing(ylim)) ylim <- c(1, ceiling(max(x$mean[, 1:4])))
@@ -112,8 +155,13 @@ plot_eval <- function(x, plottype = 1, subscale = NULL, error_bars = TRUE, ci = 
         text(cex=1, x = 1:nrow(x$mean), y = ytext, labels = x.labels, xpd=T, srt=45, adj = 1)
 
         lines(1:nrow(x$mean), x$mean[, grep("Gesamt", colnames(x$mean))],
+<<<<<<< HEAD
               lwd = lwd, type = type, pch = pch, col = col, ...)
         title(main = main, ...)
+=======
+              lwd = lwd, type = type, pch = 20)
+        title(main = x$varnames[grep("Gesamt", colnames(x$mean))])
+>>>>>>> e884890a94d4ee266860d96212f8ac8d134bfa86
         if (error_bars == TRUE) {
             errbar(x = 1:nrow(x$mean), y = x$mean[, grep("Gesamt", colnames(x$mean))],
                    yplus  = x$mean[, grep("Gesamt", colnames(x$mean))] + qnorm((1-ci)/2 + ci)*x$se[, grep("Gesamt", colnames(x$mean))],
@@ -156,8 +204,13 @@ plot_eval <- function(x, plottype = 1, subscale = NULL, error_bars = TRUE, ci = 
             # text(cex=1, x = 1:6, y = ytext, labels = x.labels, xpd=T, srt=45, adj = 1)
             text(cex=1, x = 1:6, y =  1 - ymax[ii]*12^-1, labels = x.labels, xpd=T, srt=45, adj = 1)
             lines(1:nrow(x$mean), x$mean[, ii],
+<<<<<<< HEAD
                   col = col, lwd = lwd, type = type, pch = pch, ...)
             title(main = x$varnames[ii], ...)
+=======
+                  col = cols(5), lwd = lwd, type = "b", pch = 20)
+            title(main = x$varnames[ii])
+>>>>>>> e884890a94d4ee266860d96212f8ac8d134bfa86
             if (error_bars == TRUE) {
                 errbar(x = 1:nrow(x$mean), y = x$mean[, ii],
                        yplus  = x$mean[, ii] + qnorm((1-ci)/2 + ci)*x$se[, ii],
@@ -183,8 +236,13 @@ plot_eval <- function(x, plottype = 1, subscale = NULL, error_bars = TRUE, ci = 
         text(cex=1, x = 1:nrow(x$mean), y = ytext, labels = x.labels, xpd=T, srt=45, adj = 1)
 
         lines(1:nrow(x$mean), x$mean[, subscale],
+<<<<<<< HEAD
               col = col, lwd = lwd, type = type, pch = pch, ...)
         title(main = main, ...)
+=======
+              lwd = lwd, type = type, pch = 20)
+        title(main = x$varnames[subscale])
+>>>>>>> e884890a94d4ee266860d96212f8ac8d134bfa86
         if (error_bars == TRUE) {
             errbar(x = 1:nrow(x$mean), y = x$mean[, subscale],
                    yplus  = x$mean[, subscale] + qnorm((1-ci)/2 + ci)*x$se[, subscale],
