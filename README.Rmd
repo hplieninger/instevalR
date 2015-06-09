@@ -8,7 +8,7 @@ output:
 
 `instevalR` is an R package under construction that is useful for people doing course evaluations (at universities, e.g., U Mannheim) with the software InstEvaL (https://insteval.uni-mannheim.de). The package has functions to combine the results of multiple course evaluations (e.g., different courses/cohorts of a single instructor) and to plot those results:
 
-```{r, echo = F, eval = T, fig.height=8, fig.width=14, out.height="300px", out.width="600px"}
+```{r, example-plot, echo = F, eval = T, dev='pdf'}
 library("instevalR")
 set.seed(123)
 dat.x <- sim_eval(N.files = 5, N.id = 50)
