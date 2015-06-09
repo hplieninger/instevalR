@@ -5,6 +5,6 @@ Version: 0.1.0.9000
 Date: 2015-05-26
 Authors@R: person("Hansjoerg", "Plieninger",
     email = "plieninger@uni-mannheim.de", role = c("aut", "cre"))
-Description: "InstEvaL" is an online system for course evaluations, which is used mainly at German universities (e.g., U Mannheim). The system (e.g., insteval.uni-mannheim.de) provides instructors with feedback for every course that is evaluated and with the accompanying raw data. The package instevalR uses the raw data of several course evaluations, combines them, and provides a handful of interesting plots.
+Description: "InstEvaL" is an online system for course evaluations, which is used mainly at German universities (e.g., U Mannheim). The system (insteval.uni-mannheim.de) provides instructors with feedback for every course that is evaluated and with the accompanying raw data. The package instevalR uses the raw data of several course evaluations, combines them, and provides a handful of interesting plots.
 License: GPL-3
 LazyData: TRUE
