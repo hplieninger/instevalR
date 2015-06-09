@@ -1,27 +1,35 @@
 #' Plot multiple course evalautions
 #'
-#' This function takes as input the output from \link{\code{aggregate_eval}} and plots the results.
+#' This function takes as input the output from \code{\link{aggregate_eval}} and plots the results.
 #'
-#' @param x List of data frames as returned from \link{\code{aggregate_eval}}.
+#' @param x List of data frames as returned from \code{\link{aggregate_eval}}.
 #' @param plottype Integer between \code{1} and \code{4}, selects the type of plot(s):
 #' \describe{
 #'  \item{\code{plottype = 1}}{1 plot of 4 variables, i.e., the first four scales of "Gesamtbewertung"}
 #'  \item{\code{plottype = 2}}{1 plot of 1 variable, i.e., the scale "5: Gesamt"}
 #'  \item{\code{plottype = 3}}{33 plots of all 33 variables arranged in 7 plot windows}
-#'  \item{\code{plottype = 4}}{1 plot of a single, user-seleted variable, see \code{subscale}}
+#'  \item{\code{plottype = 4}}{1 plot of a single, user-seleted variable (see \code{subscale})}
 #' }
-#' @param subscale Integer indicating the number of the scale to be plotted (if \code{plottype = 4}).
-#' @param error_bars Logical indicating whether error bars representing a confidence interval should be plotted or not.
-#' @param ci Numeric. Confidence level, usually .95 (or .90) for a 95\% CI.
+#' @param subscale Integer indicating the number of the scale to be plotted (if
+#'   \code{plottype = 4}).
+#' @param error_bars Logical indicating whether error bars representing a
+#'   confidence interval should be plotted or not.
+#' @param ci Numeric. Confidence level, often .95 for a 95\% CI.
+#' @param x.labels Optional character vector with the labels of the tick marks
+#'   of the x-axis, typically names of courses/semester. If \code{NULL}, this is
+#'   borrowed from the names of the *.csv-files.
 #' @param pdf Logical. If \code{TRUE}, the plots are written to a pdf-file.
-#' @param x.labels Optional character vector with the labels of the tick marks of the x-axis, typically names of courses/semester. If \code{NULL}, this is borrowed from the names of the *.csv-files.
-#' @param alpha Numeric. Transparency value for the error bars (\code{0} means fully transparent and \code{1} means opaque)).
+#' @param alpha Numeric. Transparency value for the error bars (\code{0} means
+#'   fully transparent and \code{1} means opaque)).
 #' @param col.axis Character. If \code{plottype = 3} and \code{ylim = NULL} (its
 #'   default), most of the plots have black y-axis annotations. But some of the
 #'   plots differ in their \code{ylim}-values and their y-axis annotations are
 #'   printed in a different color. Can be changed to \code{"black"} to override
 #'   this behavior.
-#' @inheritParams plot.default
+#' @param lwd The line width, a positive number.
+#' @param col Character string. The color to be used for the lines and error bars, may be a vector of length 4 if \code{plottype = 1}.
+#' @inheritParams graphics::plot.default
+#' @param ... Other \link{graphical parameters} passed to \code{\link[graphics]{lines}} or \code{\link[graphics]{title}}.
 #' @export
 #' @importFrom Hmisc errbar
 #' @importFrom scales alpha
@@ -33,7 +41,7 @@
 #' # Default: Plot of four main scales with 95% CI
 #' plot_eval(res.1)
 #'
-#' # Plot only the scale 'Gesamt', with 90% CI
+#' # Plot only the scale "Gesamt", with 90% CI
 #' plot_eval(res.1, plottype = 2, ci = .9)
 #'
 #' # Plot all scales and save the plots in a pdf file
@@ -44,9 +52,10 @@
 #'     ylim = c(1, 6), ylab = "Scale", x.labels =)
 #' }
 plot_eval <- function(x, plottype = 1, subscale = NULL, error_bars = TRUE, ci = .95,
-                      x.labels = NULL, pdf = FALSE, type = "b", lwd = 3,
-                      ylim = NULL, pch = 20, col = NULL, alpha = .25, main = NULL,
-                      col.axis = "salmon",  ...) {
+                      x.labels = NULL, pdf = FALSE,
+                      col = NULL, col.axis = "salmon", alpha = .25,
+                      lwd = 3,  main = NULL, pch = 20, type = "b", ylim = NULL,
+                      ...) {
     opar <- par(no.readonly = TRUE)
     if (missing(x.labels)) x.labels = rownames(x$mean)
     # cols <- c("#D7191C", "#FDAE61", "#ABDDA4", "#2B83BA")
@@ -75,7 +84,7 @@ plot_eval <- function(x, plottype = 1, subscale = NULL, error_bars = TRUE, ci = 
         text(cex=1, x = 1:6, y = ytext, labels = x.labels, xpd=T, srt=45, adj = 1)
         for (ii in 1:4) {
             lines(1:nrow(x$mean), x$mean[, grep("Ges_", colnames(x$mean))[ii]],
-                  col = col[ii], lwd = lwd, type = "b", pch = pch, ...)
+                  col = col[ii], lwd = lwd, type = type, pch = pch, ...)
             if (error_bars == TRUE) {
                 errbar(x = 1:nrow(x$mean), y = x$mean[, grep("Ges_", colnames(x$mean))[ii]],
                        yplus  = x$mean[, grep("Ges_", colnames(x$mean))[ii]] + qnorm((1-ci)/2 + ci)*x$se[, grep("Ges_", colnames(x$mean))[ii]],
@@ -147,7 +156,7 @@ plot_eval <- function(x, plottype = 1, subscale = NULL, error_bars = TRUE, ci = 
             # text(cex=1, x = 1:6, y = ytext, labels = x.labels, xpd=T, srt=45, adj = 1)
             text(cex=1, x = 1:6, y =  1 - ymax[ii]*12^-1, labels = x.labels, xpd=T, srt=45, adj = 1)
             lines(1:nrow(x$mean), x$mean[, ii],
-                  col = col, lwd = lwd, type = "b", pch = pch, ...)
+                  col = col, lwd = lwd, type = type, pch = pch, ...)
             title(main = x$varnames[ii], ...)
             if (error_bars == TRUE) {
                 errbar(x = 1:nrow(x$mean), y = x$mean[, ii],

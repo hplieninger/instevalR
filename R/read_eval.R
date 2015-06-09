@@ -6,11 +6,10 @@
 #'   stored. (The files probably have a name like
 #'   'InstEvaL-Rohdaten-vlg_XXXXX-evaluationen.csv', make sure to put only those
 #'   files in the directory and no other files.)
-#' @param id Optional numeric vector identifying a subset of files, which should be read.
+#' @param id Optional numeric vector identifying a subset of files, which should be used.
 #' @param return_long Logical. If this is set to \code{TRUE} (the default), data
-#'   is returned as a single data frame in 'long' format (subesquently required
+#'   is returned as a single data frame in 'long' format (subsequently required
 #'   for \code{\link{aggregate_eval}}). Nothing else implemented so far.
-#'   returned.
 #' @return Returns the data from all *.csv-file in one object.
 #' @export
 #' @importFrom plyr ddply

@@ -12,12 +12,11 @@ stored. (The files probably have a name like
 'InstEvaL-Rohdaten-vlg_XXXXX-evaluationen.csv', make sure to put only those
 files in the directory and no other files.)}
 
-\item{id}{Optional numeric vector identifying a subset of files, which should be read.}
+\item{id}{Optional numeric vector identifying a subset of files, which should be used.}
 
 \item{return_long}{Logical. If this is set to \code{TRUE} (the default), data
-is returned as a single data frame in 'long' format (subesquently required
-for \code{\link{comb_eval}}). Nothing else implemented so far.
-returned.}
+is returned as a single data frame in 'long' format (subsequently required
+for \code{\link{aggregate_eval}}). Nothing else implemented so far.}
 }
 \value{
 Returns the data from all *.csv-file in one object.

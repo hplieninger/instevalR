@@ -1,27 +1,27 @@
 #' Aggregate multiple course evalautions
 #'
-#' This function takes as input the output from \code{read_eval} and returns a list of aggregated data (e.g., means, standard errors).
+#' This function takes as input the output from \code{\link{read_eval}} and returns a list of aggregated data (e.g., means, standard errors).
 #'
-#' @param dat Data frame as returned from \code{read_eval}
-#' @param language Character string specifiying the language of the variable names. Currentyl only \code{"de"} for German is implemented.
+#' @param dat Data frame as returned from \code{\link{read_eval}}
 #' @inheritParams read_eval
+#' @param lang Character string specifying the language of the variable names. Currently implemented only \code{"de"} for German.
 #' @return Returns a list of five elements:
-#' \describe{
-#'  \item{mean}{For each scale and each course evaluation, the mean across all participants}
-#'  \item{sd}{For each scale and each course evaluation, the SD across all participants}
-#'  \item{se}{For each scale and each course evaluation, the SE across all participants}
-#'  \item{N}{For each course evaluation, the number of participants}
-#'  \item{varnames}{For each scale, its label}
+#' \itemize{
+#'  \item{\code{mean}: For each scale and each course evaluation, the mean across all participants}
+#'  \item{\code{sd}: For each scale and each course evaluation, the SD across all participants}
+#'  \item{\code{se}: For each scale and each course evaluation, the SE across all participants}
+#'  \item{\code{N}: For each course evaluation, the number of participants}
+#'  \item{\code{varnames}: For each scale, its label}
 #' }
 #' @export
-#' @importFrom plyr ddply
+#' @importFrom plyr ddply colwise
 #' @importFrom reshape2 dcast
 #' @examples
 #' \dontrun{
 #' dat.1 <- read_eval("./data/")      # read all files
 #' res.1 <- aggregate_eval(dat.1)     # aggregate results for plotting
 #' }
-aggregate_eval <- function(dat, id, language = "de") {
+aggregate_eval <- function(dat, id, lang = "de") {
     if (is.data.frame(dat) != TRUE) stop("Object 'dat' must be a data frame")
     # library("plyr")
     if (missing(id)) id <- 1:length(dat)
@@ -44,7 +44,7 @@ aggregate_eval <- function(dat, id, language = "de") {
     dat.n <- dcast(dat.n, formula = file ~ scale, value.var = "V1")[, -1]
     dat.se <- dat.sd / sqrt(dat.n)
 
-    rownames(dat.m) <- rownames(dat.sd) <- rownames(dat.n) <- rownames(dat.se) <- levels(dat.1$file)
+    rownames(dat.m) <- rownames(dat.sd) <- rownames(dat.n) <- rownames(dat.se) <- levels(dat$file)
     # colnames(dat.m) <- colnames(dat.sd) <- colnames(dat.n) <- colnames(dat.se) <- varnames.2$scale[order(varnames.2$number)]
 
     varnames.2$scale[order(varnames.2$number)]
