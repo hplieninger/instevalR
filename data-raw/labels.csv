@@ -1,54 +1,54 @@
 id;text;thema;number;short_version_num;invers;referat;topic;scale;labels
 1;Es wurde zuviel Stoff behandelt.;Angemessener Arbeitsaufwand;7;0;1;0;Lehrveranstaltung;Angemessener.Arbeitsaufwand;Angemessener Arbeitsaufwand
-2;Der Arbeitsaufwand für die Lehrveranstaltung war sehr groß.;Angemessener Arbeitsaufwand;9;0;1;0;Lehrveranstaltung;Angemessener.Arbeitsaufwand;Angemessener Arbeitsaufwand
-3;Um der Lehrveranstaltung zu folgen, war viel zusätzliche Arbeit nötig.;Angemessener Arbeitsaufwand;20;9;1;0;Lehrveranstaltung;Angemessener.Arbeitsaufwand;Angemessener Arbeitsaufwand
+2;Der Arbeitsaufwand fuer die Lehrveranstaltung war sehr gross.;Angemessener Arbeitsaufwand;9;0;1;0;Lehrveranstaltung;Angemessener.Arbeitsaufwand;Angemessener Arbeitsaufwand
+3;Um der Lehrveranstaltung zu folgen, war viel zusaetzliche Arbeit noetig.;Angemessener Arbeitsaufwand;20;9;1;0;Lehrveranstaltung;Angemessener.Arbeitsaufwand;Angemessener Arbeitsaufwand
 4;Ich habe den Stoff verstanden.;Angemessene Schwierigkeit;29;0;0;0;StudentIn;Angemessene.Schwierigkeit;Angemessene Schwierigkeit
 5;Meine Vorkenntnisse waren ausreichend.;Angemessene Schwierigkeit;32;0;0;0;StudentIn;Angemessene.Schwierigkeit;Angemessene Schwierigkeit
 6;Man konnte dem Stoff leicht folgen.;Angemessene Schwierigkeit;33;14;0;0;StudentIn;Angemessene.Schwierigkeit;Angemessene Schwierigkeit
-7;Es wurden genügend Beispiele und Veranschaulichungen eingesetzt.;Beispiele und Praxisbezug;24;0;0;0;Lehrveranstaltung;Beispiele.und.Praxisbezug;Beispiele und Praxisbezug
+7;Es wurden genuegend Beispiele und Veranschaulichungen eingesetzt.;Beispiele und Praxisbezug;24;0;0;0;Lehrveranstaltung;Beispiele.und.Praxisbezug;Beispiele und Praxisbezug
 8;Der Stoff wurde anhand von Beispielen veranschaulicht.;Beispiele und Praxisbezug;16;8;0;0;Lehrveranstaltung;Beispiele.und.Praxisbezug;Beispiele und Praxisbezug
 9;Ein Bezug zwischen Theorie und Praxis wurde hergestellt.;Beispiele und Praxisbezug;14;0;0;0;Lehrveranstaltung;Beispiele.und.Praxisbezug;Beispiele und Praxisbezug
 10;Die Studierenden wurden ermutigt, Fragen zu stellen und an der Diskussion teilzunehmen.;Fragen und Diskussion;8;0;0;0;Lehrveranstaltung;Fragen.und.Diskussion;Fragen und Diskussion
-11;Der/Die DozentIn förderte die offene und freie Beteiligung der Studierenden.;Fragen und Diskussion;17;10;0;0;Lehrveranstaltung;Fragen.und.Diskussion;Fragen und Diskussion
+11;Der/Die DozentIn foerderte die offene und freie Beteiligung der Studierenden.;Fragen und Diskussion;17;10;0;0;Lehrveranstaltung;Fragen.und.Diskussion;Fragen und Diskussion
 12;Die Studierenden wurden zu aktiver Teilnahme angeregt.;Fragen und Diskussion;21;0;0;0;Lehrveranstaltung;Fragen.und.Diskussion;Fragen und Diskussion
-13;Der/Die DozentIn scheint Lehre als reine Pflichtübung und Routine zu betrachten.;Motivierung;12;0;1;0;Lehrveranstaltung;Motivierung;Motivierung
+13;Der/Die DozentIn scheint Lehre als reine Pflichtuebung und Routine zu betrachten.;Motivierung;12;0;1;0;Lehrveranstaltung;Motivierung;Motivierung
 14;Die Darstellungen waren langweilig und trocken.;Motivierung;23;0;1;0;Lehrveranstaltung;Motivierung;Motivierung
 15;Der/Die DozentIn wirkte motivierend.;Motivierung;25;11;0;0;DozentIn;Motivierung;Motivierung
 16;Der Besuch der Lehrveranstaltung lohnt sich meiner Meinung nach.;Relevanz und Nutzen;30;0;0;0;StudentIn;Relevanz.und.Nutzen;Relevanz und Nutzen
 17;Ich habe Sinnvolles und Wichtiges gelernt.;Relevanz und Nutzen;31;13;0;0;StudentIn;Relevanz.und.Nutzen;Relevanz und Nutzen
 18;Ich habe in dieser Lehrveranstaltung viel gelernt.;Relevanz und Nutzen;34;0;0;0;StudentIn;Relevanz.und.Nutzen;Relevanz und Nutzen
 19;Der/Die DozentIn stellte unterschiedliche Meinungen zum Thema dar.;Spektrum;5;0;0;0;Lehrveranstaltung;Spektrum;Spektrum
-20;Der/Die DozentIn stellte verschiedene Theorien gegenüber.;Spektrum;13;5;0;0;Lehrveranstaltung;Spektrum;Spektrum
-21;Der/Die DozentIn stellte Bezüge zu anderen Fachgebieten her.;Spektrum;18;0;0;0;Lehrveranstaltung;Spektrum;Spektrum
+20;Der/Die DozentIn stellte verschiedene Theorien gegenueber.;Spektrum;13;5;0;0;Lehrveranstaltung;Spektrum;Spektrum
+21;Der/Die DozentIn stellte Bezuege zu anderen Fachgebieten her.;Spektrum;18;0;0;0;Lehrveranstaltung;Spektrum;Spektrum
 22;Der Inhalt der Lehrveranstaltung war gut strukturiert.;Struktur und Aufbau;11;7;0;0;Lehrveranstaltung;Struktur.und.Aufbau;Struktur und Aufbau
 23;Struktur und Aufbau der Lehrveranstaltung waren nachvollziehbar.;Struktur und Aufbau;15;0;0;0;Lehrveranstaltung;Struktur.und.Aufbau;Struktur und Aufbau
 24;Die Lehrveranstaltung war gut organisiert.;Struktur und Aufbau;19;0;0;0;Lehrveranstaltung;Struktur.und.Aufbau;Struktur und Aufbau
 25;Der/Die DozentIn wirkte freundlich.;Sympathie;26;0;0;0;DozentIn;Sympathie;Sympathie
 26;Der/Die DozentIn wirkte arrogant.;Sympathie;27;0;1;0;DozentIn;Sympathie;Sympathie
 27;Der/Die DozentIn wirkte herablassend.;Sympathie;28;12;1;0;DozentIn;Sympathie;Sympathie
-28;Die Lehrveranstaltungsinhalte waren gut vorbereitet.;Verständlichkeit;6;0;0;0;Lehrveranstaltung;Verständlichkeit;Verständlichkeit
-29;Der/Die DozentIn vermittelte den Stoff anschaulich.;Verständlichkeit;10;6;0;0;Lehrveranstaltung;Verständlichkeit;Verständlichkeit
-30;Der/Die DozentIn konnte Kompliziertes verständlich machen.;Verständlichkeit;22;0;0;0;Lehrveranstaltung;Verständlichkeit;Verständlichkeit
-31;Die didaktischen Fähigkeiten des/der DozentIn waren...;Gesamtbewertung;1;1;0;0;Gesamt;Ges_Didaktische.Fähigkeiten;Didaktische Fähigkeiten
-32;Welche Note würden Sie dem/der DozentIn geben?;Gesamtbewertung;2;2;0;0;Gesamt;Ges_Note.Dozent;Note Dozent
-33;Welche Note würden Sie der Lehrveranstaltung insgesamt geben?;Gesamtbewertung;3;3;0;0;Gesamt;Ges_Note.LV;Note LV
+28;Die Lehrveranstaltungsinhalte waren gut vorbereitet.;Verstaendlichkeit;6;0;0;0;Lehrveranstaltung;Verstaendlichkeit;Verstaendlichkeit
+29;Der/Die DozentIn vermittelte den Stoff anschaulich.;Verstaendlichkeit;10;6;0;0;Lehrveranstaltung;Verstaendlichkeit;Verstaendlichkeit
+30;Der/Die DozentIn konnte Kompliziertes verstaendlich machen.;Verstaendlichkeit;22;0;0;0;Lehrveranstaltung;Verstaendlichkeit;Verstaendlichkeit
+31;Die didaktischen Faehigkeiten des/der DozentIn waren...;Gesamtbewertung;1;1;0;0;Gesamt;Ges_Didaktische.Faehigkeiten;Didaktische Faehigkeiten
+32;Welche Note wuerden Sie dem/der DozentIn geben?;Gesamtbewertung;2;2;0;0;Gesamt;Ges_Note.Dozent;Note Dozent
+33;Welche Note wuerden Sie der Lehrveranstaltung insgesamt geben?;Gesamtbewertung;3;3;0;0;Gesamt;Ges_Note.LV;Note LV
 34;Wie schneidet diese Lehrveranstaltung ab im Vergleich zu anderen Lehrveranstaltungen?;Gesamtbewertung;4;4;0;0;Gesamt;Ges_Vergleich.mit.anderen.LVn;Vergleich mit anderen LVn
-35;Die Temperatur und Belüftung des Raumes waren gut.;Rahmenbedingungen;35;0;0;0;Rahmenbedingungen;Rahm01_Temperatur.und.Belüftung;RB: Temperatur und Belüftung
+35;Die Temperatur und Belueftung des Raumes waren gut.;Rahmenbedingungen;35;0;0;0;Rahmenbedingungen;Rahm01_Temperatur.und.Belueftung;RB: Temperatur und Belueftung
 36;Die Akustik im Raum war gut.;Rahmenbedingungen;36;0;0;0;Rahmenbedingungen;Rahm02_Akustik;RB: Akustik
 37;Die verwendeten Medien waren gut.;Rahmenbedingungen;37;15;0;0;Rahmenbedingungen;Rahm03_Lesbarkeit.der.Medien;RB: Lesbarkeit der Medien
 38;Der/Die DozentIn setzte Medien in angemessenem Umfang ein.;Rahmenbedingungen;38;16;0;0;Rahmenbedingungen;Rahm04_Umfang.des.Medieneinsatzes;RB: Umfang des Medieneinsatzes
-39;Die angegebene Literatur war verfügbar.;Rahmenbedingungen;39;17;0;0;Rahmenbedingungen;Rahm05_Verfügbarkeit.der.Literatur;RB: Verfügbarkeit der Literatur
-40;Die Lehrveranstaltung wurde rechtzeitig und zutreffend angekündigt.;Rahmenbedingungen;40;0;0;0;Rahmenbedingungen;Rahm06_Ankündigung.der.LV;RB: Ankündigung der LV
+39;Die angegebene Literatur war verfuegbar.;Rahmenbedingungen;39;17;0;0;Rahmenbedingungen;Rahm05_Verfuegbarkeit.der.Literatur;RB: Verfuegbarkeit der Literatur
+40;Die Lehrveranstaltung wurde rechtzeitig und zutreffend angekuendigt.;Rahmenbedingungen;40;0;0;0;Rahmenbedingungen;Rahm06_Ankuendigung.der.LV;RB: Ankuendigung der LV
 41;Der/Die DozentIn hielt sich an die Lehrveranstaltungszeiten.;Rahmenbedingungen;41;0;0;0;Rahmenbedingungen;Rahm07_Veranstaltungszeiten;RB: Veranstaltungszeiten
 42;Wie viele Lehrveranstaltungstermine fanden nicht statt und wurden nicht nachgeholt?;Rahmenbedingungen;42;0;0;0;Rahmenbedingungen;Rahm08_Ausfalltermine;RB: Ausfalltermine
 43;An wie vielen Lehrveranstaltungsterminen haben Sie nicht teilgenommen?;Rahmenbedingungen;43;0;0;0;Rahmenbedingungen;Rahm09_Termine.nicht.teilgenommen;RB: Termine nicht teilgenommen
-44;Einmal abgesehen von Ihrer Bewertung dieser speziellen Lehrveranstaltung, wie groß ist ihr Interesse am Stoff der Lehrveranstaltung?;Rahmenbedingungen;44;18;0;0;Rahmenbedingungen;Rahm10_Interesse;RB: Interesse
-45;Die Referate waren gut strukturiert und verständlich.;Referate;46;20;0;1;Referate;Ref1_Gut.strukturiert.u.verständlich;Ref: Gut strukturiert u verständlich
+44;Einmal abgesehen von Ihrer Bewertung dieser speziellen Lehrveranstaltung, wie gross ist ihr Interesse am Stoff der Lehrveranstaltung?;Rahmenbedingungen;44;18;0;0;Rahmenbedingungen;Rahm10_Interesse;RB: Interesse
+45;Die Referate waren gut strukturiert und verstaendlich.;Referate;46;20;0;1;Referate;Ref1_Gut.strukturiert.u.verstaendlich;Ref: Gut strukturiert u verstaendlich
 46;Die Referenten waren gut vorbereitet.;Referate;47;21;0;1;Referate;Ref2_Referenten.gut.vorbereitet;Ref: Referenten gut vorbereitet
-47;Die referierten Themen waren nützlich und wertvoll.;Referate;48;22;0;1;Referate;Ref3_Themen.nützlich.u.wertvoll;Ref: Themen nützlich u wertvoll
-48;Die Referate wurden durch den/die DozentIn adäquat ergänzt.;Referate;49;23;0;1;Referate;Ref4_Durch.Dozent.adäquat.ergänzt;Ref: Durch Dozent adäquat ergänzt
-49;Es blieb genügend Zeit für Fragen und Diskussion;Referate;50;24;0;1;Referate;Ref5_Zeit.für.Fragen;Ref: Zeit für Fragen
+47;Die referierten Themen waren nuetzlich und wertvoll.;Referate;48;22;0;1;Referate;Ref3_Themen.nuetzlich.u.wertvoll;Ref: Themen nuetzlich u wertvoll
+48;Die Referate wurden durch den/die DozentIn adaequat ergaenzt.;Referate;49;23;0;1;Referate;Ref4_Durch.Dozent.adaequat.ergaenzt;Ref: Durch Dozent adaequat ergaenzt
+49;Es blieb genuegend Zeit fuer Fragen und Diskussion;Referate;50;24;0;1;Referate;Ref5_Zeit.fuer.Fragen;Ref: Zeit fuer Fragen
 50;Die Referate waren insgesamt...;Referate;51;25;0;1;Referate;Ref6_Insgesamt;Ref: Insgesamt
 51;Mit diesem Bogen konnte ich meine Meinung zur Lehrveranstaltung gut wiedergeben.;Sonstige;52;26;0;0;Sonstige;Sonst_Bogen.konnte.Meinung.gut.wiedergeben;Mit Bogen Meinung gut wiedergeben
-52;Einmal abgesehen von Ihrem Zeitaufwand für ein Referat oder eine Hausarbeit, wie viele Stunden pro Woche haben Sie durchschnittlich für die Vor- und Nachbereitung der Lehrveranstaltung aufgewendet?;Rahmenbedingungen;45;19;0;0;Rahmenbedingungen;Rahm11_Aufwand.in.Stunden;RB: Aufwand in Stunden
+52;Einmal abgesehen von Ihrem Zeitaufwand fuer ein Referat oder eine Hausarbeit, wie viele Stunden pro Woche haben Sie durchschnittlich fuer die Vor- und Nachbereitung der Lehrveranstaltung aufgewendet?;Rahmenbedingungen;45;19;0;0;Rahmenbedingungen;Rahm11_Aufwand.in.Stunden;RB: Aufwand in Stunden
 53;;Gesamt;53;;;;;Gesamt;Gesamt
