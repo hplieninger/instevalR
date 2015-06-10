@@ -25,6 +25,15 @@ res.1 <- aggregate_eval(dat.1)                     # combine into single object
 plot_eval(res.1)                                   # do a plot
 ```
 
+If you don't have \*.csv-files (yet) or just want to explore the package, you may do this using simulated data:
+
+``` r
+library("instevalR")                               # load in every new R session
+dat.1 <- sim_eval()                                # simulate raw data
+res.1 <- aggregate_eval(dat.1)                     # combine into single object
+plot_eval(res.1)                                   # do a plot
+```
+
 Happy teaching. Please send any bug reports, feature requests, or comments to `plieninger@uni-mannheim.de` (in English or German).
 
 ------------------------------------------------------------------------
