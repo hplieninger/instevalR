@@ -1,5 +1,5 @@
 Package: instevalR
-Title: Combine The Results Of Several InstEvaL Course Evaluations And Plot Them
+Title: An R Package For Summarizing And Plotting Several InstEvaL Course Evaluations
 Version: 0.0.0.9000
 Authors@R: person("Hansjoerg", "Plieninger", email = "plieninger@uni-mannheim.de",
                   role = c("aut", "cre"))
