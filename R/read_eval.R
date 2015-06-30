@@ -7,9 +7,6 @@
 #'   "InstEvaL-Rohdaten-vlg_XXXXX-evaluationen.csv", make sure to put only those
 #'   files in the directory and no other files.)
 #' @param id Optional numeric vector identifying a subset of files, which should be used.
-#' @param return_long Logical. If this is set to \code{TRUE} (the default), data
-#'   is returned as a single data frame in 'long' format (subsequently required
-#'   for \code{\link{aggregate_eval}}). Nothing else implemented so far.
 #' @return Returns the data from all *.csv-file in one object.
 #' @export
 #' @examples
@@ -17,7 +14,7 @@
 #' dat.1 <- read_eval("./data/")               # read all files
 #' dat.1 <- read_eval("./data/", id = 1:5)     # read first 5 files
 #' }
-read_eval <- function(directory, id, return_long = TRUE) {
+read_eval <- function(directory, id) {
 
     files <- list.files(directory, full.names = F)
     if (all(substr(files, start = 1, stop = 22) == "InstEvaL-Rohdaten-vlg_")) {
@@ -41,7 +38,7 @@ read_eval <- function(directory, id, return_long = TRUE) {
                             col.names = c("item_no", "number", "id", "resp"))
         dat <- rbind(dat, cbind(file = file.names[ii], dat.1[, -1]))
     }
-    x1 <- plyr::ddply(dat[dat$number %in% (1:4), ], .variables = c("file", "id"), .fun = colwise(mean, na.rm = T))
+    x1 <- plyr::ddply(dat[dat$number %in% (1:4), ], .variables = c("file", "id"), .fun = plyr::colwise(mean, na.rm = T))
     x1$number <- 53
     dat <- rbind(dat, x1)
 

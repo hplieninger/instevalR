@@ -11,6 +11,6 @@ citEntry(entry = "Manual",
          textVersion  =
              paste("Plieninger, H. (2015).",
                    "instevalR: An R package for summarizing and plotting several InstEvaL course evaluations.",
-                   "R package, version 1.0"
+                   "R package, version 1.0",
                    "Retrieved from https://github.com/hplieninger/instevalR/")
 )

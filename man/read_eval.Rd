@@ -4,7 +4,7 @@
 \alias{read_eval}
 \title{Read insteval data from directory}
 \usage{
-read_eval(directory, id, return_long = TRUE)
+read_eval(directory, id)
 }
 \arguments{
 \item{directory}{Character string of path name, where the *.csv-files are
@@ -13,10 +13,6 @@ stored. (The files probably have a name like
 files in the directory and no other files.)}
 
 \item{id}{Optional numeric vector identifying a subset of files, which should be used.}
-
-\item{return_long}{Logical. If this is set to \code{TRUE} (the default), data
-is returned as a single data frame in 'long' format (subsequently required
-for \code{\link{aggregate_eval}}). Nothing else implemented so far.}
 }
 \value{
 Returns the data from all *.csv-file in one object.

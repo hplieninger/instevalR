@@ -1,7 +1,7 @@
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 `instevalR` is an R package under construction that is useful for people doing course evaluations (at universities, e.g., U Mannheim) with the software InstEvaL (<https://insteval.uni-mannheim.de>). The package has functions to combine the results of multiple course evaluations (e.g., different courses/cohorts of a single instructor) and to plot those results:
 
-![](README_files/figure-markdown_github/example-plot-1.png)
+![](README-example-plot-1.png)
 
 In order to use this package, you need three things:
 
