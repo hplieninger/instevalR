@@ -19,7 +19,7 @@
 #' dat.1 <- read_eval("./data/")      # read all files
 #' res.1 <- aggregate_eval(dat.1)     # aggregate results for plotting
 #' }
-aggregate_eval <- function(dat, id, lang = "de") {
+aggregate_eval <- function(dat, id, lang = "de", x.labels = NULL) {
     if (is.data.frame(dat) != TRUE) stop("Object 'dat' must be a data frame")
     # library("plyr")
     if (missing(id)) id <- 1:length(dat)
@@ -42,7 +42,12 @@ aggregate_eval <- function(dat, id, lang = "de") {
     dat.n <- reshape2::dcast(dat.n, formula = file ~ scale, value.var = "V1")[, -1]
     dat.se <- dat.sd / sqrt(dat.n)
 
-    rownames(dat.m) <- rownames(dat.sd) <- rownames(dat.n) <- rownames(dat.se) <- levels(dat$file)
+    if (is.null(x.labels)) {
+        rownames(dat.m) <- rownames(dat.sd) <- rownames(dat.n) <- rownames(dat.se) <- levels(dat$file)
+    } else {
+        rownames(dat.m) <- rownames(dat.sd) <- rownames(dat.n) <- rownames(dat.se) <- x.labels
+    }
+
     # colnames(dat.m) <- colnames(dat.sd) <- colnames(dat.n) <- colnames(dat.se) <- varnames.2$scale[order(varnames.2$number)]
 
     varnames.2$scale[order(varnames.2$number)]

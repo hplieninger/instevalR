@@ -7,7 +7,7 @@
 plot_eval(x, plottype = 1, subscale = NULL, error_bars = TRUE,
   ci = 0.95, x.labels = NULL, pdf = FALSE, col = NULL,
   col.axis = "salmon", alpha = 0.25, lwd = 3, main = NULL, pch = 20,
-  type = "b", ylim = NULL, ...)
+  type = "b", ylim = NULL, plot.legend = TRUE, ...)
 }
 \arguments{
 \item{x}{List of data frames as returned from \code{\link{aggregate_eval}}.}
@@ -65,6 +65,8 @@ their interpretation.}
 
 \item{ylim}{the y limits of the plot.}
 
+\item{plot.legend}{Logical. May be set to \code{FALSE} in order to specify a user-defined legend afterwards.}
+
 \item{...}{Other \link{graphical parameters} passed to \code{\link[graphics]{lines}} or \code{\link[graphics]{title}}.}
 }
 \description{
@@ -86,7 +88,7 @@ plot_eval(res.1, plottype = 3, pdf = TRUE)
 
 # Plot a specific scale (#2) with user-defined parameters
 plot_eval(res.1, plottype = 4, subscale = 2, lwd = 2, lty = 2, col = "blue",
-    ylim = c(1, 6), ylab = "Scale", x.labels =)
+    ylim = c(1, 6), ylab = "Scale", x.labels = paste("Course", 1:5))
 }
 }
 

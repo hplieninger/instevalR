@@ -7,6 +7,8 @@
 #'   "InstEvaL-Rohdaten-vlg_XXXXX-evaluationen.csv", make sure to put only those
 #'   files in the directory and no other files.)
 #' @param id Optional numeric vector identifying a subset of files, which should be used.
+#' @param x.labels Optional character vector supplying the names of the courses.
+#'   Number of elements must match the number of files to read in.
 #' @return Returns the data from all *.csv-file in one object.
 #' @export
 #' @examples
@@ -14,7 +16,7 @@
 #' dat.1 <- read_eval("./data/")               # read all files
 #' dat.1 <- read_eval("./data/", id = 1:5)     # read first 5 files
 #' }
-read_eval <- function(directory, id) {
+read_eval <- function(directory, id, x.labels = NULL) {
 
     files <- list.files(directory, full.names = F)
     if (all(substr(files, start = 1, stop = 22) == "InstEvaL-Rohdaten-vlg_")) {
@@ -27,6 +29,8 @@ read_eval <- function(directory, id) {
     } else {
         file.names <- files
     }
+
+    if (!is.null(x.labels)) file.names <- x.labels
 
     if (missing(id)) id <- 1:length(files)
     files <- files[id]

@@ -31,6 +31,7 @@
 #' @param pch Either an integer specifying a symbol or a single character to be
 #'   used as the default in plotting points. See \code{\link{points}} for possible values and
 #'   their interpretation.
+#' @param plot.legend Logical. May be set to \code{FALSE} in order to specify a user-defined legend afterwards.
 #' @inheritParams graphics::plot.default
 #' @param ... Other \link{graphical parameters} passed to \code{\link[graphics]{lines}} or \code{\link[graphics]{title}}.
 #' @export
@@ -50,17 +51,20 @@
 #'
 #' # Plot a specific scale (#2) with user-defined parameters
 #' plot_eval(res.1, plottype = 4, subscale = 2, lwd = 2, lty = 2, col = "blue",
-#'     ylim = c(1, 6), ylab = "Scale", x.labels =)
+#'     ylim = c(1, 6), ylab = "Scale", x.labels = paste("Course", 1:5))
 #' }
 plot_eval <- function(x, plottype = 1, subscale = NULL, error_bars = TRUE, ci = .95,
                       x.labels = NULL, pdf = FALSE,
                       col = NULL, col.axis = "salmon", alpha = .25,
                       lwd = 3,  main = NULL, pch = 20, type = "b", ylim = NULL,
-                      ...) {
+                      plot.legend = TRUE, ...) {
     opar <- par(no.readonly = TRUE)
     if (missing(x.labels)) x.labels = rownames(x$mean)
     # cols <- c("#D7191C", "#FDAE61", "#ABDDA4", "#2B83BA")
     cols <- function(col, alpha = 1) {
+#         r <- c(228,  55,  77, 152, 0)
+#         g <- c(26,  126, 175,  78, 0)
+#         b <- c(28,  184,  74, 163, 0)
         r <- c(215, 253, 171, 43, 0)
         g <- c(25, 174, 221, 131, 0)
         b <- c(28, 97, 164, 186, 0)
@@ -83,7 +87,7 @@ plot_eval <- function(x, plottype = 1, subscale = NULL, error_bars = TRUE, ci = 
         axis(side = 2)
         # axis(side = 1, at = 1:nrow(x$mean), labels = xlables)
         axis(side = 1, at = 1:nrow(x$mean), labels = F)
-        text(cex=1, x = 1:6, y = ytext, labels = x.labels, xpd=T, srt=45, adj = 1)
+        text(cex=1, x = 1:6, y = ytext, labels = x.labels, xpd=T, srt=45, adj = .75)
         for (ii in 1:4) {
             lines(1:nrow(x$mean), x$mean[, grep("Ges_", colnames(x$mean))[ii]],
                   col = col[ii], lwd = lwd, type = type, pch = pch, ...)
@@ -96,7 +100,7 @@ plot_eval <- function(x, plottype = 1, subscale = NULL, error_bars = TRUE, ci = 
         }
         title(main = main, ...)
         legend("topleft", legend = x$varnames[grep("Ges_", colnames(x$mean))],
-               col = col, lwd = lwd, bty = "n")
+               col = col, lwd = lwd, bty = "n", plot = plot.legend)
     }
     if (plottype == 2) {
         if (missing(ylim)) ylim <- c(1, ceiling(max(x$mean[, 1:4])))

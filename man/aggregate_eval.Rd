@@ -4,7 +4,7 @@
 \alias{aggregate_eval}
 \title{Aggregate multiple course evalautions}
 \usage{
-aggregate_eval(dat, id, lang = "de")
+aggregate_eval(dat, id, lang = "de", x.labels = NULL)
 }
 \arguments{
 \item{dat}{Data frame as returned from \code{\link{read_eval}}}
@@ -12,6 +12,9 @@ aggregate_eval(dat, id, lang = "de")
 \item{id}{Optional numeric vector identifying a subset of files, which should be used.}
 
 \item{lang}{Character string specifying the language of the variable names. Currently implemented only \code{"de"} for German.}
+
+\item{x.labels}{Optional character vector supplying the names of the courses.
+Number of elements must match the number of files to read in.}
 }
 \value{
 Returns a list of five elements:

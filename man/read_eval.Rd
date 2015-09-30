@@ -4,7 +4,7 @@
 \alias{read_eval}
 \title{Read insteval data from directory}
 \usage{
-read_eval(directory, id)
+read_eval(directory, id, x.labels = NULL)
 }
 \arguments{
 \item{directory}{Character string of path name, where the *.csv-files are
@@ -13,6 +13,9 @@ stored. (The files probably have a name like
 files in the directory and no other files.)}
 
 \item{id}{Optional numeric vector identifying a subset of files, which should be used.}
+
+\item{x.labels}{Optional character vector supplying the names of the courses.
+Number of elements must match the number of files to read in.}
 }
 \value{
 Returns the data from all *.csv-file in one object.
