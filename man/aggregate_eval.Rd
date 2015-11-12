@@ -14,7 +14,7 @@ aggregate_eval(dat, id, lang = "de", x.labels = NULL)
 \item{lang}{Character string specifying the language of the variable names. Currently implemented only \code{"de"} for German.}
 
 \item{x.labels}{Optional character vector supplying the names of the courses.
-Number of elements must match the number of files to read in.}
+Number of elements must match the number of files.}
 }
 \value{
 Returns a list of five elements:

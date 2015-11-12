@@ -1,16 +1,16 @@
 citHeader("To cite instevalR use:")
 
-citEntry(entry = "Manual",
-         title        = "{instevalR}: {A}n {R} package for summarizing and plotting several {InstEvaL} course evaluations",
+citEntry(entry = "Software",
+         title        = "{instevalR}: {An} {R} package for summarizing and plotting several {InstEvaL} course evaluations",
          author       = personList(as.person("Hansj\\\"{o}rg Plieninger")),
          year         = "2015",
          url          = "https://github.com/hplieninger/instevalR/",
-         version      = "0.1",
+         version      = "0.1.0",
          note         = "R package",
 
          textVersion  =
              paste("Plieninger, H. (2015).",
                    "instevalR: An R package for summarizing and plotting several InstEvaL course evaluations.",
-                   "R package, version 1.0",
+                   "R package, version 1.0.0.",
                    "Retrieved from https://github.com/hplieninger/instevalR/")
 )

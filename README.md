@@ -12,7 +12,8 @@ In order to use this package, you need three things:
 The easiest way to install the package `instevalR` is to install it directly from GitHub:
 
 ``` r
-install.packages("devtools")                      # if it's not already installed
+# install "devtools" unless you already have it, may take 1 or 2 minutes
+install.packages("devtools")
 devtools::install_github("hplieninger/instevalR")
 ```
 

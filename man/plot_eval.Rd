@@ -5,8 +5,8 @@
 \title{Plot multiple course evalautions}
 \usage{
 plot_eval(x, plottype = 1, subscale = NULL, error_bars = TRUE,
-  ci = 0.95, x.labels = NULL, pdf = FALSE, col = NULL,
-  col.axis = "salmon", alpha = 0.25, lwd = 3, main = NULL, pch = 20,
+  CI = 0.95, x.labels = NULL, pdf = FALSE, col = NULL,
+  col.axis = "salmon", alpha = 0.25, lwd = 3, main = NULL, pch = 19,
   type = "b", ylim = NULL, plot.legend = TRUE, ...)
 }
 \arguments{
@@ -14,8 +14,8 @@ plot_eval(x, plottype = 1, subscale = NULL, error_bars = TRUE,
 
 \item{plottype}{Integer between \code{1} and \code{4}, selects the type of plot(s):
 \describe{
- \item{\code{plottype = 1}}{1 plot of 4 variables, i.e., the first four scales of "Gesamtbewertung"}
- \item{\code{plottype = 2}}{1 plot of 1 variable, i.e., the scale "5: Gesamt"}
+ \item{\code{plottype = 1}}{1 plot of 4 variables, namely, the first four scales of "Gesamtbewertung"}
+ \item{\code{plottype = 2}}{1 plot of 1 variable, namely, the scale "5: Gesamt"}
  \item{\code{plottype = 3}}{33 plots of all 33 variables arranged in 7 plot windows}
  \item{\code{plottype = 4}}{1 plot of a single, user-seleted variable (see \code{subscale})}
 }}
@@ -26,7 +26,7 @@ plot_eval(x, plottype = 1, subscale = NULL, error_bars = TRUE,
 \item{error_bars}{Logical indicating whether error bars representing a
 confidence interval should be plotted or not.}
 
-\item{ci}{Numeric. Confidence level, often .95 for a 95\% CI.}
+\item{CI}{Numeric. Confidence level, often .95 for a 95\% CI.}
 
 \item{x.labels}{Optional character vector with the labels of the tick marks
 of the x-axis, typically names of courses/semester. If \code{NULL}, this is
@@ -81,7 +81,7 @@ res.1 <- aggregate_eval(dat.1)     # aggregate results for plotting
 plot_eval(res.1)
 
 # Plot only the scale "Gesamt", with 90\% CI
-plot_eval(res.1, plottype = 2, ci = .9)
+plot_eval(res.1, plottype = 2, CI = .9)
 
 # Plot all scales and save the plots in a pdf file
 plot_eval(res.1, plottype = 3, pdf = TRUE)

@@ -43,9 +43,9 @@ id;text;thema;number;short_version_num;invers;referat;topic;scale;labels
 42;Wie viele Lehrveranstaltungstermine fanden nicht statt und wurden nicht nachgeholt?;Rahmenbedingungen;42;0;0;0;Rahmenbedingungen;Rahm08_Ausfalltermine;RB: Ausfalltermine
 43;An wie vielen Lehrveranstaltungsterminen haben Sie nicht teilgenommen?;Rahmenbedingungen;43;0;0;0;Rahmenbedingungen;Rahm09_Termine.nicht.teilgenommen;RB: Termine nicht teilgenommen
 44;Einmal abgesehen von Ihrer Bewertung dieser speziellen Lehrveranstaltung, wie gross ist ihr Interesse am Stoff der Lehrveranstaltung?;Rahmenbedingungen;44;18;0;0;Rahmenbedingungen;Rahm10_Interesse;RB: Interesse
-45;Die Referate waren gut strukturiert und verstaendlich.;Referate;46;20;0;1;Referate;Ref1_Gut.strukturiert.u.verstaendlich;Ref: Gut strukturiert u verstaendlich
+45;Die Referate waren gut strukturiert und verstaendlich.;Referate;46;20;0;1;Referate;Ref1_Gut.strukturiert.u.verstaendlich;Ref: Gut strukturiert und verstaendlich
 46;Die Referenten waren gut vorbereitet.;Referate;47;21;0;1;Referate;Ref2_Referenten.gut.vorbereitet;Ref: Referenten gut vorbereitet
-47;Die referierten Themen waren nuetzlich und wertvoll.;Referate;48;22;0;1;Referate;Ref3_Themen.nuetzlich.u.wertvoll;Ref: Themen nuetzlich u wertvoll
+47;Die referierten Themen waren nuetzlich und wertvoll.;Referate;48;22;0;1;Referate;Ref3_Themen.nuetzlich.u.wertvoll;Ref: Themen nuetzlich und wertvoll
 48;Die Referate wurden durch den/die DozentIn adaequat ergaenzt.;Referate;49;23;0;1;Referate;Ref4_Durch.Dozent.adaequat.ergaenzt;Ref: Durch Dozent adaequat ergaenzt
 49;Es blieb genuegend Zeit fuer Fragen und Diskussion;Referate;50;24;0;1;Referate;Ref5_Zeit.fuer.Fragen;Ref: Zeit fuer Fragen
 50;Die Referate waren insgesamt...;Referate;51;25;0;1;Referate;Ref6_Insgesamt;Ref: Insgesamt

@@ -8,7 +8,7 @@
 #'   files in the directory and no other files.)
 #' @param id Optional numeric vector identifying a subset of files, which should be used.
 #' @param x.labels Optional character vector supplying the names of the courses.
-#'   Number of elements must match the number of files to read in.
+#'   Number of elements must match the number of files.
 #' @return Returns the data from all *.csv-file in one object.
 #' @export
 #' @examples
