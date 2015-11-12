@@ -5,7 +5,7 @@
 
 In order to use this package, you need three things:
 
-1.  The *.csv-files of your course evaluations, which you can downlaod from insteval (insteval -\> Results -\> Raw data). Please save all your *.csv-files in a single directory.
+1.  The *.csv-files of your course evaluations, which you can download from InstEvaL (InstEvaL -\> Results -\> Raw data). Please save all your *.csv-files in a single directory.
 2.  R (which you can download from <http://www.r-project.org>)
 3.  The package `instevalR`
 
