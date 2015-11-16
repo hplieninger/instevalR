@@ -3,6 +3,7 @@
 #' This function takes as input the output from \code{\link{read_eval}} and returns a list of aggregated data (e.g., means, standard errors).
 #'
 #' @param dat Data frame as returned from \code{\link{read_eval}}
+#' @param id Optional numeric vector identifying a subset of data sets, which should be used.
 #' @inheritParams read_eval
 #' @param lang Character string specifying the language of the variable names. Currently implemented only \code{"de"} for German.
 #' @return Returns a list of five elements:
