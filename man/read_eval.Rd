@@ -4,7 +4,7 @@
 \alias{read_eval}
 \title{Read insteval data from directory}
 \usage{
-read_eval(directory, id, x.labels = NULL)
+read_eval(directory, x_labels = NULL, echo = TRUE)
 }
 \arguments{
 \item{directory}{Character string of path name, where the *.csv-files are
@@ -12,10 +12,10 @@ stored. (The files probably have a name like
 "InstEvaL-Rohdaten-vlg_XXXXX-evaluationen.csv", make sure to put only those
 files in the directory and no other files.)}
 
-\item{id}{Optional numeric vector identifying a subset of files, which should be used.}
-
-\item{x.labels}{Optional character vector supplying the names of the courses.
+\item{x_labels}{Optional character vector supplying the names of the courses.
 Number of elements must match the number of files.}
+
+\item{echo}{Logical indicating whether the name of the imported files shoulde be echoed to the screen.}
 }
 \value{
 Returns the data from all *.csv-file in one object.
@@ -25,8 +25,8 @@ Reads all *.csv-files from a given directory and returns all content in a single
 }
 \examples{
 \dontrun{
-dat.1 <- read_eval("./data/")               # read all files
-dat.1 <- read_eval("./data/", id = 1:5)     # read first 5 files
+dat_1 <- read_eval("./data/")               # read all files
+dat_1 <- read_eval("./data/", id = 1:5)     # read first 5 files
 }
 }
 

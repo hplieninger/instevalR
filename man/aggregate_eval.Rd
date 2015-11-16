@@ -4,16 +4,16 @@
 \alias{aggregate_eval}
 \title{Aggregate multiple course evalautions}
 \usage{
-aggregate_eval(dat, id, lang = "de", x.labels = NULL)
+aggregate_eval(dat, id, lang = "de", x_labels = NULL)
 }
 \arguments{
 \item{dat}{Data frame as returned from \code{\link{read_eval}}}
 
-\item{id}{Optional numeric vector identifying a subset of files, which should be used.}
+\item{id}{Optional numeric vector identifying a subset of data sets, which should be used.}
 
 \item{lang}{Character string specifying the language of the variable names. Currently implemented only \code{"de"} for German.}
 
-\item{x.labels}{Optional character vector supplying the names of the courses.
+\item{x_labels}{Optional character vector supplying the names of the courses.
 Number of elements must match the number of files.}
 }
 \value{
@@ -31,8 +31,8 @@ This function takes as input the output from \code{\link{read_eval}} and returns
 }
 \examples{
 \dontrun{
-dat.1 <- read_eval("./data/")      # read all files
-res.1 <- aggregate_eval(dat.1)     # aggregate results for plotting
+dat_1 <- read_eval("./data/")      # read all files
+res.1 <- aggregate_eval(dat_1)     # aggregate results for plotting
 }
 }
 

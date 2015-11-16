@@ -1,6 +1,6 @@
 citHeader("To cite instevalR use:")
 
-citEntry(entry = "Software",
+citEntry(entry = "Manual",
          title        = "{instevalR}: {An} {R} package for summarizing and plotting several {InstEvaL} course evaluations",
          author       = personList(as.person("Hansj\\\"{o}rg Plieninger")),
          year         = "2015",

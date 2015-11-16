@@ -16,7 +16,7 @@ them, and provides a handful of interesting plots.
 \section{Workflow}{
 
 \enumerate{
- \item{You have \code{R} and \code{instevalR} installed. Furthermore, please download the files of your course evaluations (InstEvaL -> Results -> Raw data) and put them into a single directory.}
+ \item{You have \code{R} and \code{instevalR} installed. Furthermore, please download the files of your course evaluations (log in to InstEvaL -> Results -> Raw data) and put them into a single directory.}
  \item{Then you need to import all your data into R using the function \code{\link{read_eval}}.}
  \item{Afterwards, you need to aggregate those data (e.g., calculate means) using \code{\link{aggregate_eval}}.}
  \item{Finally, you can plot your data using \code{\link{plot_eval}}. Play around with the argument \code{plottype} and generate different plots.}

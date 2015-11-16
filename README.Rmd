@@ -19,7 +19,7 @@ knitr::opts_chunk$set(
 ```{r, example-plot, echo = F, eval = T, dpi=300}
 library("instevalR")
 set.seed(123456)
-dat.x <- sim_eval(N.files = 5, N.id = 100)
+dat.x <- sim_eval(N_files = 5, N_id = 100)
 res.x <- aggregate_eval(dat.x)
 plot_eval(res.x, ylim = c(1, 3))
 ```

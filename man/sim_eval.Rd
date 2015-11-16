@@ -4,12 +4,12 @@
 \alias{sim_eval}
 \title{Simulate data for mock course evaluations}
 \usage{
-sim_eval(N.files = 5, N.id = 50, missing = 0.05)
+sim_eval(N_files = 5, N_id = 50, missing = 0.05)
 }
 \arguments{
-\item{N.files}{Positive integer. Number of files/courses/waves.}
+\item{N_files}{Positive integer. Number of files/courses/waves.}
 
-\item{N.id}{Positive integer. Number of participants in each file/course/wave.}
+\item{N_id}{Positive integer. Number of participants in each file/course/wave.}
 
 \item{missing}{Numberic between \code{0} and \code{1} indicating the amount of missing data.}
 }
@@ -19,7 +19,7 @@ This function may be used to simulate data in order to use \code{\link{aggregate
 \examples{
 \dontrun{
 # Simulate data for 250 participants, 50 in each of 5 courses
-dat.x <- sim_eval(N.files = 5, N.id = 50, missing = 0)
+dat.x <- sim_eval(N_files = 5, N_id = 50, missing = 0)
 }
 }
 

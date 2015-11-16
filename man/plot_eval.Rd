@@ -5,9 +5,9 @@
 \title{Plot multiple course evalautions}
 \usage{
 plot_eval(x, plottype = 1, subscale = NULL, error_bars = TRUE,
-  CI = 0.95, x.labels = NULL, pdf = FALSE, col = NULL,
+  CI = 0.95, x_labels = NULL, pdf = FALSE, col = NULL,
   col.axis = "salmon", alpha = 0.25, lwd = 3, main = NULL, pch = 19,
-  type = "b", ylim = NULL, plot.legend = TRUE, ...)
+  type = "b", ylim = NULL, plot_legend = TRUE, ...)
 }
 \arguments{
 \item{x}{List of data frames as returned from \code{\link{aggregate_eval}}.}
@@ -28,7 +28,7 @@ confidence interval should be plotted or not.}
 
 \item{CI}{Numeric. Confidence level, often .95 for a 95\% CI.}
 
-\item{x.labels}{Optional character vector with the labels of the tick marks
+\item{x_labels}{Optional character vector with the labels of the tick marks
 of the x-axis, typically names of courses/semester. If \code{NULL}, this is
 borrowed from the names of the *.csv-files.}
 
@@ -65,7 +65,7 @@ their interpretation.}
 
 \item{ylim}{the y limits of the plot.}
 
-\item{plot.legend}{Logical. May be set to \code{FALSE} in order to specify a user-defined legend afterwards.}
+\item{plot_legend}{Logical. May be set to \code{FALSE} in order to specify a user-defined legend afterwards.}
 
 \item{...}{Other \link{graphical parameters} passed to \code{\link[graphics]{lines}} or \code{\link[graphics]{title}}.}
 }
@@ -88,7 +88,7 @@ plot_eval(res.1, plottype = 3, pdf = TRUE)
 
 # Plot a specific scale (#2) with user-defined parameters
 plot_eval(res.1, plottype = 4, subscale = 2, lwd = 2, lty = 2, col = "blue",
-    ylim = c(1, 6), ylab = "Scale", x.labels = paste("Course", 1:5))
+    ylim = c(1, 6), ylab = "Scale", x_labels = paste("Course", 1:5))
 }
 }
 
