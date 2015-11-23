@@ -30,6 +30,8 @@ read_eval <- function(directory, x_labels = NULL, echo = TRUE) {
         file_names <- substr(file_names[order_1], start = 1, stop = unlist(end_1)-1)
     } else {
         file_names <- files
+        file_names <- substr(file_names, start = 1,
+                             stop = unlist(gregexpr(".csv", files)) - 1)
     }
     if (!is.null(x_labels)) {
         if (length(x_labels) != length(files)) stop(paste0("Argument 'x_labels' must be of length ", length(files)))

@@ -7,13 +7,12 @@
 #' @param missing Numberic between \code{0} and \code{1} indicating the amount of missing data.
 #' @export
 #' @examples
-#' \dontrun{
 #' # Simulate data for 250 participants, 50 in each of 5 courses
 #' dat.x <- sim_eval(N_files = 5, N_id = 50, missing = 0)
-#' }
 sim_eval <- function(N_files = 5, N_id = 50, missing = .05) {
     N_number <- 53
-    file <- factor(rep(rep(paste0("Course", 1:N_files), each = N_id), N_number))
+    file <- factor(rep(rep(paste0("Course", 1:N_files), each = N_id), N_number),
+                   levels = paste0("Course", 1:N_files))
     id <- rep(seq(1, N_id*N_files), N_number)
     number <- factor(rep(1:N_number, each = N_id*N_files))
 

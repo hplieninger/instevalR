@@ -24,6 +24,7 @@ library("instevalR")                               # load in every new R session
 dat.1 <- read_eval("path/to/directory")            # read-in raw data
 res.1 <- aggregate_eval(dat.1)                     # combine into single object
 plot_eval(res.1)                                   # do a plot
+?plot_eval                                         # help; check out Examples
 ```
 
 If you don't have \*.csv-files (yet) or just want to explore the package, you may do this using simulated data:

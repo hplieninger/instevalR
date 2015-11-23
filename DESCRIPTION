@@ -1,13 +1,22 @@
 Package: instevalR
-Title: An R Package For Summarizing And Plotting Several InstEvaL Course Evaluations
+Title: An R Package For Summarizing And Plotting Several InstEvaL Course
+    Evaluations
 Version: 0.1.0
 Authors@R: person("Hansjoerg", "Plieninger", email = "plieninger@uni-mannheim.de",
                   role = c("aut", "cre"))
-Description: InstEvaL is an online system for course evaluations, which is used mainly at German universities (e.g., U Mannheim). The system (http://insteval.uni-mannheim.de/) provides instructors with feedback for every course that is evaluated and with the accompanying raw data. The package instevalR uses the raw data of several course evaluations, combines them, and provides a handful of interesting plots.
-Depends: R (>= 3.1.0)
+Description: InstEvaL is an online system for course evaluations, which is
+    used mainly at German universities (e.g., U Mannheim). The system (http://
+    insteval.uni-mannheim.de/) provides instructors with feedback for every course
+    that is evaluated and with the accompanying raw data. The package instevalR
+    uses the raw data of several course evaluations, combines them, and provides a
+    handful of interesting plots.
+Depends:
+    R (>= 3.2.0)
 License: GPL-3
 LazyData: true
-Imports: plyr,
+Imports:
+    plyr,
     reshape2,
     scales,
     Hmisc
+RoxygenNote: 5.0.1

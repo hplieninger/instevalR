@@ -32,12 +32,14 @@
 #'   used as the default in plotting points. See \code{\link{points}} for possible values and
 #'   their interpretation.
 #' @param plot_legend Logical. May be set to \code{FALSE} in order to specify a user-defined legend afterwards.
+#' @inheritParams grDevices::pdf
 #' @inheritParams graphics::plot.default
 #' @param ... Other \link{graphical parameters} passed to \code{\link[graphics]{lines}} or \code{\link[graphics]{title}}.
 #' @export
 #' @examples
 #' \dontrun{
-#' dat.1 <- read_eval("./data/")      # read all files
+#' # dat.1 <- read_eval("./data/")    # read all files
+#' dat.1 <- sim_eval()                # simulated data
 #' res.1 <- aggregate_eval(dat.1)     # aggregate results for plotting
 #'
 #' # Default: Plot of four main scales with 95% CI
@@ -51,14 +53,29 @@
 #'
 #' # Plot a specific scale (#2) with user-defined parameters
 #' plot_eval(res.1, plottype = 4, subscale = 2, lwd = 2, lty = 2, col = "blue",
-#'     ylim = c(1, 6), ylab = "Scale", x_labels = paste("Course", 1:5))
+#'     ylim = c(1, 6), ylab = "Scale", x_labels = paste0("Term_", 1:5))
 #' }
 plot_eval <- function(x, plottype = 1, subscale = NULL, error_bars = TRUE, CI = .95,
                       x_labels = NULL, pdf = FALSE,
                       col = NULL, col.axis = "salmon", alpha = .25,
                       lwd = 3,  main = NULL, pch = 19, type = "b", ylim = NULL,
-                      plot_legend = TRUE, ...) {
+                      plot_legend = TRUE,
+                      paper, width, height, ...) {
     opar <- par(no.readonly = TRUE)
+    if (missing(paper)) {
+        if (plottype == 3) {
+            paper <- "a4"
+            width <- 0
+            height <- 0
+        } else {
+            paper <- "special"
+        }
+        if (nrow(x$mean) > 10) {
+            paper <- "a4r"
+            width <- 0
+            height <- 0
+        }
+    }
     if (missing(x_labels)) x_labels = rownames(x$mean)
     # cols <- c("#D7191C", "#FDAE61", "#ABDDA4", "#2B83BA")
     cols <- function(col, alpha = 1) {
@@ -82,16 +99,18 @@ plot_eval <- function(x, plottype = 1, subscale = NULL, error_bars = TRUE, CI = 
         } else {
             if (length(col) == 1) col <- rep(col, 4)
         }
-        ytext <- ylim[1] - diff(range(ylim))/8
+
         if (pdf == TRUE) {
-            pdf(paste0("insteval_", gsub(":", "-", substr(Sys.time(), 1, 19)), ".pdf"))
+            pdf(paste0("insteval_", gsub(":", "-", substr(Sys.time(), 1, 19)), ".pdf"),
+                width = width, height = height, paper = paper)
         }
         plot.new()
         plot.window(xlim = c(1, nrow(x$mean)), ylim = ylim)
+        ytext <- 1 / par("fin")[2] / 3
         axis(side = 2)
-        # axis(side = 1, at = 1:nrow(x$mean), labels = xlables)
         axis(side = 1, at = 1:nrow(x$mean), labels = F)
-        text(cex=1, x = 1:6, y = ytext, labels = x_labels, xpd=T, srt=45, adj = .75)
+        text(x = 1:nrow(x$mean), y = par()$usr[3] - ytext * (par()$usr[4]-par()$usr[3]),
+             labels = x_labels, xpd = T, srt = 45, adj = 1)
         ordx <- order(colMeans(x$mean[, 1:4]))
         if (error_bars == TRUE) {
             for (jj in 1:4) {
@@ -115,16 +134,17 @@ plot_eval <- function(x, plottype = 1, subscale = NULL, error_bars = TRUE, CI = 
         if (missing(ylim)) ylim <- c(1, max(ymax[grep("Gesamt", colnames(x$mean))]))
         if (missing(col)) col <- "black"
         if (missing(main)) main <- x$varnames[grep("Gesamt", colnames(x$mean))]
-        ytext <- ylim[1] - diff(range(ylim))/8
         if (pdf == TRUE) {
-            pdf(paste0("insteval_", gsub(":", "-", substr(Sys.time(), 1, 19)), ".pdf"))
+            pdf(paste0("insteval_", gsub(":", "-", substr(Sys.time(), 1, 19)), ".pdf"),
+                width = width, height = height, paper = paper)
         }
         plot.new()
         plot.window(xlim = c(1, nrow(x$mean)), ylim = ylim)
+        ytext <- 1 / par("fin")[2] / 3
         axis(side = 2)
-        # axis(side = 1, at = 1:nrow(x$mean), labels = x_labels)
         axis(side = 1, at = 1:nrow(x$mean), labels = F)
-        text(cex=1, x = 1:nrow(x$mean), y = ytext, labels = x_labels, xpd=T, srt=45, adj = .75)
+        text(cex=1, x = 1:nrow(x$mean), y = par()$usr[3] - ytext * (par()$usr[4]-par()$usr[3]),
+             labels = x_labels, xpd=T, srt=45, adj = 1)
 
         lines(1:nrow(x$mean), x$mean[, grep("Gesamt", colnames(x$mean))],
               lwd = lwd, type = type, pch = pch, col = col, ...)
@@ -139,12 +159,8 @@ plot_eval <- function(x, plottype = 1, subscale = NULL, error_bars = TRUE, CI = 
     if (plottype == 3) {
         if (pdf == TRUE) {
             pdf(paste0("insteval_", gsub(":", "-", substr(Sys.time(), 1, 19)), ".pdf"),
-                width = 7.27, height = 10.7, paper = "a4")
+                width = width, height = height, paper = paper)
         }
-        #         ymax <- as.numeric(apply(x$mean + qnorm((1-CI)/2 + CI)*x$se,
-        #                                  2, function(x) ceiling(max(x, na.rm = T))))
-        #         ymax[ymax < 2] <- 2
-        #         ymax[ymax > 6] <- 6
         tab_max <- tabulate(ymax)
         ymax2 <- which(cumsum(prop.table(tab_max)) >= 2/3)[1]
         if (length(unique(ymax)) == 1) {
@@ -172,16 +188,17 @@ plot_eval <- function(x, plottype = 1, subscale = NULL, error_bars = TRUE, CI = 
                     plot.new()
                 }
             }
-            plot.new()
             ylimx <- ifelse(rep(missing(ylim), 2), c(1, ymax[ii]), ylim)
+
+            plot.new()
             plot.window(xlim = c(1, nrow(x$mean)), ylim = ylimx)
+            ytext <- 1 / par("fin")[2] / 3
             if (all.equal(ymax2[1], ymax2[2]) == TRUE) col.axis <- "black"
             axis(side = 2,
                  col.axis = ifelse(missing(ylim) & ymax[ii] == ymax2[2], col.axis, "black"))
-            # axis(side = 1, at = 1:nrow(x$mean), labels = xlables)
             axis(side = 1, at = 1:nrow(x$mean), labels = F)
-            ytext <- ylimx[1] - diff(range(ylimx))/8
-            text(x = 1:6, y =  ytext, labels = x_labels, xpd = TRUE, srt = 45, adj = .75)
+            text(cex=1, x = 1:nrow(x$mean), y = par()$usr[3] - ytext * (par()$usr[4]-par()$usr[3]),
+                 labels = x_labels, xpd=T, srt=45, adj = 1)
             lines(1:nrow(x$mean), x$mean[, ii],
                   col = col, lwd = lwd, type = type, pch = pch, ...)
             title(main = x$varnames[ii], ...)
@@ -198,18 +215,17 @@ plot_eval <- function(x, plottype = 1, subscale = NULL, error_bars = TRUE, CI = 
         if (missing(ylim)) ylim <- c(1, max(ymax[subscale]))
         if (missing(col)) col <- "black"
         if (missing(main)) main <- x$varnames[subscale]
-        ytext <- ylim[1] - diff(range(ylim))/8
         if (pdf == TRUE) {
-            pdf(paste0("insteval_", gsub(":", "-", substr(Sys.time(), 1, 19)), ".pdf"))
+            pdf(paste0("insteval_", gsub(":", "-", substr(Sys.time(), 1, 19)), ".pdf"),
+                width = width, height = height, paper = paper)
         }
         plot.new()
         plot.window(xlim = c(1, nrow(x$mean)), ylim = ylim)
+        ytext <- 1 / par("fin")[2] / 3
         axis(side = 2)
-        # axis(side = 1, at = 1:nrow(x$mean), labels = xlables)
         axis(side = 1, at = 1:nrow(x$mean), labels = F)
-        text(x = 1:nrow(x$mean), y = ytext,
-             labels = x_labels,
-             xpd = TRUE, srt = 45, adj = .75)
+        text(cex=1, x = 1:nrow(x$mean), y = par()$usr[3] - ytext * (par()$usr[4]-par()$usr[3]),
+             labels = x_labels, xpd=T, srt=45, adj = 1)
 
         lines(1:nrow(x$mean), x$mean[, subscale],
               col = col, lwd = lwd, type = type, pch = pch, ...)
@@ -223,6 +239,7 @@ plot_eval <- function(x, plottype = 1, subscale = NULL, error_bars = TRUE, CI = 
     }
     if (pdf == TRUE) {
         dev.off()
+        par(opar)
         cat(paste0("I wrote a pdf to ", getwd(), "\n"))
     } else par(opar)
 }

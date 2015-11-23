@@ -38,4 +38,3 @@
 #'     ylim = c(1, 6), ylab = "Scale", x.labels = paste("Course", 1:5))
 #' }
 NULL
-#> NULL
