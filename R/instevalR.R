@@ -22,6 +22,7 @@ if (getRversion() >= "2.15.1")  utils::globalVariables(c("."))
 #' @importFrom magrittr %>%
 #' @importFrom stats median qnorm rpois runif sd setNames quantile
 #' @importFrom rlang .data
+#' @seealso \url{https://hplieninger.shinyapps.io/ShinyInstevalR}
 #' @examples
 #' ## EITHER ## read own data
 #' \dontrun{

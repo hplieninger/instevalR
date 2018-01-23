@@ -36,3 +36,6 @@ dat1 <- sim_eval()
 # plot
 plot_eval(dat1)
 }
+\seealso{
+\url{https://hplieninger.shinyapps.io/ShinyInstevalR}
+}
