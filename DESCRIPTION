@@ -1,7 +1,7 @@
 Package: instevalR
 Title: An R Package For Summarizing And Plotting Several InstEvaL Course
     Evaluations
-Version: 0.1.0
+Version: 0.2.0
 Authors@R: person("Hansjoerg", "Plieninger", email = "plieninger@uni-mannheim.de",
                   role = c("aut", "cre"))
 Description: InstEvaL is an online system for course evaluations, which is
@@ -14,9 +14,22 @@ Depends:
     R (>= 3.2.0)
 License: GPL-3
 LazyData: true
-Imports:
-    plyr,
+Imports: 
+    checkmate,
     reshape2,
-    scales,
-    Hmisc
-RoxygenNote: 5.0.1
+    dplyr,
+    ggplot2,
+    rlang,
+    magrittr
+RoxygenNote: 6.0.1
+Suggests: 
+    readxl,
+    shiny,
+    shinyAce,
+    ggthemes,
+    shinyjs,
+    shinyBS,
+    DT,
+    shinythemes,
+    testthat,
+    covr

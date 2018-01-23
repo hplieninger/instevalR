@@ -4,7 +4,8 @@
 \alias{sim_eval}
 \title{Simulate data for mock course evaluations}
 \usage{
-sim_eval(N_files = 5, N_id = 50, missing = 0.05)
+sim_eval(N_files = 5, N_id = 50, missing = 0.05, wide_format = FALSE,
+  lang = c("de", "en"))
 }
 \arguments{
 \item{N_files}{Positive integer. Number of files/courses/waves.}
@@ -12,12 +13,16 @@ sim_eval(N_files = 5, N_id = 50, missing = 0.05)
 \item{N_id}{Positive integer. Number of participants in each file/course/wave.}
 
 \item{missing}{Numberic between \code{0} and \code{1} indicating the amount of missing data.}
+
+\item{wide_format}{Logical indicating whether data should be returned in wide format.}
+
+\item{lang}{Character string specifying the language of the variable names.}
 }
 \description{
-This function may be used to simulate data in order to use \code{\link{aggregate_eval}} and \code{\link{plot_eval}} without real data.
+This function may be used to simulate data in order to use
+\code{\link{join_eval}} and \code{\link{plot_eval}} without real data.
 }
 \examples{
-# Simulate data for 250 participants, 50 in each of 5 courses
-dat.x <- sim_eval(N_files = 5, N_id = 50, missing = 0)
+# Simulate data for 60 participants, 20 in each of 3 courses
+dat1 <- sim_eval(N_files = 3, N_id = 20)
 }
-

@@ -6,6 +6,11 @@ output:
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
+[![Travis build status](https://travis-ci.org/hplieninger/instevalR.svg?branch=master)](https://travis-ci.org/hplieninger/instevalR)
+
+[![Coverage status](https://codecov.io/gh/hplieninger/instevalR/branch/master/graph/badge.svg)](https://codecov.io/github/hplieninger/instevalR?branch=master)
+
+
 ```{r, echo = FALSE}
 knitr::opts_chunk$set(
   collapse = TRUE,
@@ -14,44 +19,46 @@ knitr::opts_chunk$set(
 )
 ```
 
-`instevalR` is an R package under construction that is useful for people doing course evaluations (at universities, e.g., U Mannheim) with the software InstEvaL (https://insteval.uni-mannheim.de). The package has functions to combine the results of multiple course evaluations (e.g., different courses/cohorts of a single instructor) and to plot those results:
+`instevalR` is an R package under construction that is useful for people doing course evaluations (at universities, e.g., U Mannheim) with the software [InstEvaL](https://insteval.uni-mannheim.de). The package has functions to combine the results of several course evaluations (e.g., different courses/cohorts of a single instructor) and to plot those results:
 
 ```{r, example-plot, echo = F, eval = T, dpi=300}
 library("instevalR")
 set.seed(123456)
-dat.x <- sim_eval(N_files = 5, N_id = 100)
-res.x <- aggregate_eval(dat.x)
-plot_eval(res.x, ylim = c(1, 3))
+dat1 <- sim_eval(N_files = 3, N_id = 100)
+plot_eval(dat1)
 ```
 
 In order to use this package, you need three things:
 
-1.  The *.csv-files of your course evaluations, which you can download from InstEvaL (log in to InstEvaL -> Results -> Raw data). Please save all your *.csv-files in a single directory.
-2.  R (which you can download from http://www.r-project.org)
+1.  The CSV-files with the raw data of your course evaluations, which you can download from InstEvaL (log in to [InstEvaL](https://insteval.uni-mannheim.de) -> Results -> Raw data). Please save all your CSV-files in a single directory (they should have names ending with 'evaluationen.csv').
+2.  R (which you can download from https://www.r-project.org)
 3.  The package `instevalR`
 
 The easiest way to install the package `instevalR` is to install it directly from GitHub:
+
 ```{r, echo = T, eval = F}
-# install "devtools" unless you already have it, may take 1 or 2 minutes
 install.packages("devtools")
 devtools::install_github("hplieninger/instevalR")
 ```
 
-After you have your *.csv-files, R, and the package, you can get started:
+After you have your CSV-files, R, and the package, you can get started:
+
 ```{r, echo = T, eval = F}
-library("instevalR")                               # load in every new R session
-dat.1 <- read_eval("path/to/directory")            # read-in raw data
-res.1 <- aggregate_eval(dat.1)                     # combine into single object
-plot_eval(res.1)                                   # do a plot
-?plot_eval                                         # help; check out Examples
+library("instevalR")                             # load in every new R session
+tmp1 <- read_eval("path/to/directory")           # read-in raw data
+dat1 <- join_eval(tmp1)                          # combine into single data frame
+plot_eval(dat1)                                  # plot
+?plot_eval                                       # help; check out Examples
 ```
 
-If you don't have *.csv-files (yet) or just want to explore the package, you may do this using simulated data:
+If you're unfamiliar with R, you may find the shiny app useful which you can run (after having R and instevalR installed) using `shiny_eval()` or simply go to . Furthermore, you can simulate data using `sim_eval()`, and you can create a nice summary table using `datatable_eval()`.
+
 ```{r, echo = T, eval = F}
-library("instevalR")                               # load in every new R session
-dat.1 <- sim_eval()                                # simulate raw data
-res.1 <- aggregate_eval(dat.1)                     # combine into single object
-plot_eval(res.1)                                   # do a plot
+library("instevalR")                             # load in every new R session
+shiny_eval()                                     # interactive shiny app
+dat1 <- sim_eval()                               # simulate data   
+plot_eval(dat1)                                  # plot
+datatable_eval(dat1)
 ```
 
 Happy teaching. Please send any bug reports, feature requests, or comments to `plieninger@uni-mannheim.de` (in English or German).

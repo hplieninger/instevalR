@@ -4,29 +4,39 @@
 \alias{read_eval}
 \title{Read insteval data from directory}
 \usage{
-read_eval(directory, x_labels = NULL, echo = TRUE)
+read_eval(path = NULL, names = NULL, pattern = NULL, recursive = FALSE,
+  shiny = FALSE)
 }
 \arguments{
-\item{directory}{Character string of path name, where the *.csv-files are
-stored. (The files probably have a name like
-"InstEvaL-Rohdaten-vlg_XXXXX-evaluationen.csv", make sure to put only those
-files in the directory and no other files.)}
+\item{path}{If \code{NULL}, the user is prompted to choose the files
+interactively; this is only available on Windows. Otherwise, a character
+vector containing path name(s), pointing to the CSV-files. The files
+probably have names ending with "evaluationen.csv". Make sure to put only
+those files in the directory and no other files.}
 
-\item{x_labels}{Optional character vector supplying the names of the courses.
+\item{names}{Optional character vector supplying the names of the courses.
 Number of elements must match the number of files.}
 
-\item{echo}{Logical indicating whether the name of the imported files shoulde be echoed to the screen.}
+\item{pattern}{An optional regular expression passed to
+\code{\link[base]{list.files}}. Can be used to read data only from files
+with a matching filename.}
+
+\item{recursive}{Logical passed to \code{\link[base]{list.files}}. Should the
+file seach recurse into directories?}
+
+\item{shiny}{Logical. For internal use only.}
 }
 \value{
-Returns the data from all *.csv-file in one object.
+List of data frames.
 }
 \description{
-Reads all *.csv-files from a given directory and returns all content in a single object.
+Reads all CSV-files from a given directory and returns all data in a single list
 }
 \examples{
 \dontrun{
-dat_1 <- read_eval("./data/")               # read all files
-dat_1 <- read_eval("./data/", id = 1:5)     # read first 5 files
-}
-}
+dat1 <- read_eval()
 
+# Specify own names and read only files matching a specific pattern
+dat1 <- read_eval("./data", names = c("Lab1", "Lab2"), pattern = "lab")
+}
+}

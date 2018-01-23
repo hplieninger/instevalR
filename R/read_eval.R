@@ -1,63 +1,105 @@
 #' Read insteval data from directory
 #'
-#' Reads all *.csv-files from a given directory and returns all content in a single object.
+#' Reads all CSV-files from a given directory and returns all data in a single list
 #'
-#' @param directory Character string of path name, where the *.csv-files are
-#'   stored. (The files probably have a name like
-#'   "InstEvaL-Rohdaten-vlg_XXXXX-evaluationen.csv", make sure to put only those
-#'   files in the directory and no other files.)
-#' @param x_labels Optional character vector supplying the names of the courses.
+#' @param path If \code{NULL}, the user is prompted to choose the files
+#'   interactively; this is only available on Windows. Otherwise, a character
+#'   vector containing path name(s), pointing to the CSV-files. The files
+#'   probably have names ending with "evaluationen.csv". Make sure to put only
+#'   those files in the directory and no other files.
+#' @param names Optional character vector supplying the names of the courses.
 #'   Number of elements must match the number of files.
-#' @param echo Logical indicating whether the name of the imported files shoulde be echoed to the screen.
-#' @return Returns the data from all *.csv-file in one object.
+#' @param pattern An optional regular expression passed to
+#'   \code{\link[base]{list.files}}. Can be used to read data only from files
+#'   with a matching filename.
+#' @param recursive Logical passed to \code{\link[base]{list.files}}. Should the
+#'   file seach recurse into directories?
+#' @param shiny Logical. For internal use only.
+#' @return List of data frames.
+# @importFrom magrittr %>%
+# @importFrom utils choose.files read.table
 #' @export
 #' @examples
 #' \dontrun{
-#' dat_1 <- read_eval("./data/")               # read all files
-#' dat_1 <- read_eval("./data/", id = 1:5)     # read first 5 files
+#' dat1 <- read_eval()
+#'
+#' # Specify own names and read only files matching a specific pattern
+#' dat1 <- read_eval("./data", names = c("Lab1", "Lab2"), pattern = "lab")
 #' }
-read_eval <- function(directory, x_labels = NULL, echo = TRUE) {
-    files <- list.files(directory, full.names = F)
-    idx_1 <- grepl(".csv", files)
-    files <- files[idx_1]
-    idx_2 <- !grepl(paste(c("kommentare", "fragen"), collapse = "|"), files)
-    files <- files[idx_2]
-    org_files <- files
-    if (all(substr(files, start = 1, stop = 22) == "InstEvaL-Rohdaten-vlg_")) {
-        file_names <- substr(files, start = 1 + unlist(gregexpr("_", files)), stop = 100)
-        order_1 <- order(nchar(file_names))
-        end_1 <- gregexpr("-", file_names[order_1])
-        file_names <- substr(file_names[order_1], start = 1, stop = unlist(end_1)-1)
+read_eval <- function(path = NULL,
+                      names = NULL,
+                      pattern = NULL,
+                      recursive = FALSE,
+                      shiny = FALSE) {
+
+    checkmate::qassert(recursive, "B1")
+
+    if (is.null(path)) {
+        if (Sys.info()["sysname"] == "Windows") {
+            cat("Use the dialog to select the CSV-file(s) of your course evaluations\n")
+            files <- utils::choose.files()
+        } else {
+            stop("A 'path' must be specified on non-Windows systems.")
+        }
+    } else if (shiny == FALSE) {
+        path <- normalizePath(path, mustWork = TRUE)
+
+        files <- list.files(path, pattern = pattern, full.names = TRUE,
+                            recursive = recursive) %>%
+            grep("[.]csv$|[.]xls$|[.]xlsx", x = ., value = TRUE) %>%
+            grep(paste(c("kommentare", "fragen"), collapse = "|"), x = .,
+                 value = TRUE, invert = TRUE)
+
+        # files2 <- list.files(path, pattern = pattern, full.names = TRUE,
+        #                      recursive = recursive) %>%
+        #     grep("[.]csv$|[.]xls$|[.]xlsx", x = ., value = TRUE) %>%
+        #     grep(paste(c("kommentare", "fragen"), collapse = "|"), x = .,
+        #          value = TRUE, invert = TRUE)
+    } else if (shiny == TRUE) {
+
+        files <- path %>%
+            grep("[.]csv$|[.]xls$|[.]xlsx", x = ., value = TRUE) %>%
+            grep(paste(c("kommentare", "fragen"), collapse = "|"), x = .,
+                 value = TRUE, invert = TRUE)
+
+        # names <- paste0("Course", 1:length(files))
+    }
+
+    checkmate::assert_character(names, min.chars = 1,
+                                any.missing = FALSE, all.missing = FALSE,
+                                len = length(files), unique = TRUE,
+                                null.ok = TRUE)
+    if (!is.null(names)) {
+        file_names <- names
+    } else if (all(grepl("^InstEvaL-Rohdaten-vlg", files))) {
+        # file_names <- substr(files, start = 23, stop = 1000) %>%
+        #     sub("-evaluationen.csv", "", x = .) %>%
+        #     as.numeric
+        file_names <- as.numeric(regmatches(basename(files), regexpr("\\d+", files)))
     } else {
-        file_names <- files
-        file_names <- substr(file_names, start = 1,
-                             stop = unlist(gregexpr(".csv", files)) - 1)
-    }
-    if (!is.null(x_labels)) {
-        if (length(x_labels) != length(files)) stop(paste0("Argument 'x_labels' must be of length ", length(files)))
-        file_names <- x_labels
+        file_names <- sub(".csv$", "", basename(files))
     }
 
-
-    files <- list.files(directory, full.names = T)
-    files <- files[idx_1]
-    files <- files[idx_2]
-    if (exists("order_1")) files <- files[order_1]
-
-    dat <- data.frame()
-    for (ii in 1:length(files)) {
-        dat_1 <- read.table(files[[ii]], sep = ";", header = F, skip = 1,
-                            col.names = c("item_no", "number", "id", "resp"))
-        dat <- rbind(dat, cbind(file = file_names[ii], dat_1[, -1]))
-    }
-    x1 <- plyr::ddply(dat[dat$number %in% (1:4), ], .variables = c("file", "id"), .fun = plyr::colwise(mean, na.rm = T))
-    x1$number <- 53
-    dat <- rbind(dat, x1)
-
-    dat$number <- factor(dat$number, levels = 1:53)
-    if (echo == TRUE) {
-        cat("Data from the following file(s) have been imported:\n", paste0(org_files, "\n"))
+    dat <- vector("list", length = length(files))
+    names(dat) <- file_names
+    for (iii in seq_len(length(files))) {
+        if (tools::file_ext(files[iii]) == "csv") {
+            dat[[iii]] <- utils::read.table(files[[iii]], sep = ";", header = FALSE,
+                                            skip = 1,
+                                            col.names = c("item_no", "number", "id", "resp"))
+        } else if (tools::file_ext(files[iii]) %in% c("xls", "xlsx")) {
+            dat[[iii]] <- readxl::read_excel(files[[iii]], skip = 1,
+                                             col_names = c("item_no", "number", "id", "resp"))
+        }
     }
 
-    return(dat)
+    if (shiny == FALSE)
+        message("Data from the following ", length(dat), " file(s) have been imported:",
+                paste0("\n  ", basename(files)))
+
+    if (is.null(names)) {
+        return(dat[order(file_names)])
+    } else {
+        return(dat)
+    }
 }

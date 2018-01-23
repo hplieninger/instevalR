@@ -1,3 +1,7 @@
 .Rproj.user
 .Rhistory
 .RData
+R/pipe.R
+inst/labels_umlaut.csv
+R/plot_eval_old.txt
+data-raw/labels_umlaut.csv

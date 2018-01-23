@@ -4,107 +4,102 @@
 \alias{plot_eval}
 \title{Plot multiple course evalautions}
 \usage{
-plot_eval(x, plottype = 1, subscale = NULL, error_bars = TRUE,
-  CI = 0.95, x_labels = NULL, pdf = FALSE, col = NULL,
-  col.axis = "salmon", alpha = 0.25, lwd = 3, main = NULL, pch = 19,
-  type = "b", ylim = NULL, plot_legend = TRUE, paper, width, height, ...)
+plot_eval(data = NULL, plottype = c("barplot", "points", "boxplot",
+  "violin"), domains = 2, topics = NULL, topic_as = c("facet", "group",
+  "x-axis"), course_as = c("x-axis", "facet", "group"), add_line = FALSE,
+  errorbar = TRUE, CI = 0.95, grey = FALSE, lang = NULL,
+  xvar_as_legend = FALSE, control = list(), ...)
 }
 \arguments{
-\item{x}{List of data frames as returned from \code{\link{aggregate_eval}}.}
+\item{data}{Data frame as returned from \code{\link{join_eval}} (or from
+\code{\link{sim_eval}}).}
 
-\item{plottype}{Integer between \code{1} and \code{4}, selects the type of plot(s):
-\describe{
- \item{\code{plottype = 1}}{1 plot of 4 variables, namely, the first four scales of "Gesamtbewertung"}
- \item{\code{plottype = 2}}{1 plot of 1 variable, namely, the scale "5: Gesamt"}
- \item{\code{plottype = 3}}{33 plots of all 33 variables arranged in 7 plot windows}
- \item{\code{plottype = 4}}{1 plot of a single, user-seleted variable (see \code{subscale})}
+\item{plottype}{Character, either \code{"barplot"}, \code{"points"}, \code{"boxplot"}, or \code{"violin"}.}
+
+\item{domains}{Numeric of length >= 1, specifying the domains to plot.
+\itemize{
+ \item{1: Overall (one scale, namely, average of \code{domains = 2})}
+ \item{2: Overall, (i.e., didactic skills, grade lecturer, grade course, and comparison with other courses)}
+ \item{3: Different scales (e.g., structure, sympathy, motivation)}
+ \item{4: Settings (e.g., temperature, acoustics, media use)}
+ \item{5: Students' presentations}
+ \item{6: Misc}
 }}
 
-\item{subscale}{Integer indicating the number of the scale to be plotted (if
-\code{plottype = 4}).}
+\item{topics}{Character vector of length >= 1, optional. Used to select a
+subset of topics present in \code{data$topic}, e.g., \code{topics =
+c("Overall", "Motivation")}. Overrides argument \code{domains}.}
 
-\item{error_bars}{Logical indicating whether error bars representing a
+\item{topic_as}{Character. Should each topic be plotted using a different
+\code{"facet"} (panel), different \code{"group"}, or a different value on
+the \code{"x-axis"}?}
+
+\item{course_as}{Character. Should each course/file be plotted using a
+different value on the \code{"x-axis"}, a different \code{"facet"} (panel),
+or a different \code{"group"}?}
+
+\item{add_line}{Logical. Should a connecting line be added to the plot?}
+
+\item{errorbar}{Logical indicating whether error bars representing a
 confidence interval should be plotted or not.}
 
-\item{CI}{Numeric. Confidence level, often .95 for a 95\% CI.}
+\item{CI}{Numeric. Confidence level of error bars, often \code{.95} for a 95\% CI.}
 
-\item{x_labels}{Optional character vector with the labels of the tick marks
-of the x-axis, typically names of courses/semester. If \code{NULL}, this is
-borrowed from the names of the *.csv-files.}
+\item{grey}{Logical indicating whether colors should be replaces with shades
+of grey.}
 
-\item{pdf}{Logical. If \code{TRUE}, the plots are written to a pdf-file.}
+\item{lang}{Character string specifying the language of the variable names.}
 
-\item{col}{Character string. The color to be used for the lines and error bars, may be a vector of length 4 if \code{plottype = 1}.}
+\item{xvar_as_legend}{Logical indicating whether a legend should be plotted
+for the variable on the x-axis.}
 
-\item{col.axis}{Character. If \code{plottype = 3} and \code{ylim = NULL} (its
-default), most of the plots have black y-axis annotations. But some of the
-plots differ in their \code{ylim}-values and their y-axis annotations are
-printed in a different color. Can be changed to \code{"black"} to override
-this behavior.}
+\item{control}{Optional list to fine-tune the plot.
+\describe{
+ \item{nrow}{Numeric. Number of rows of a facetted plot. Passed to \code{\link[ggplot2]{facet_wrap}}.}
+ \item{ncol}{Numeric. Number of columns of a facetted plot. Passed to \code{\link[ggplot2]{facet_wrap}}.}
+ \item{title}{Character. Passed to \code{\link[ggplot2]{labs}}.}
+ \item{legend_title}{Character. Passed to \code{\link[ggplot2]{labs}}.}
+ \item{x_lab}{Character. Passed to \code{\link[ggplot2]{labs}}.}
+ \item{y_lab}{Character. Passed to \code{\link[ggplot2]{labs}}.}
+ \item{angle, hjust}{Numeric. Adjustment of the labels of the ticks on the x-axis. Passed to \code{\link[ggplot2]{element_text}}.}
+ \item{errorbar_width}{Numeric. Width of the whiskers. Passed to \code{\link[ggplot2]{geom_errorbar}}.}
+ \item{ylim}{Numeric of length <= 2. Limits of the y-axis. Passed to \code{\link[ggplot2]{coord_cartesian}}.}
+ \item{alpha}{Numeric. Alpha transparency.}
+ \item{size}{Numeric. Factor modifying the size of points and errorbars, defaulting to 1.}
+ \item{shape}{Numeric/Character. Shape of points. Passed to \code{\link[ggplot2]{geom_point}}.}
+ \item{dodge_width}{Numeric. How far away from each other should different groups be plotted? Passed to \code{\link[ggplot2]{position_dodge}}.}
+}}
 
-\item{alpha}{Numeric. Transparency value for the error bars (\code{0} means
-fully transparent and \code{1} means opaque).}
-
-\item{lwd}{The line width, a positive number.}
-
-\item{main}{a main title for the plot, see also \code{\link{title}}.}
-
-\item{pch}{Either an integer specifying a symbol or a single character to be
-used as the default in plotting points. See \code{\link{points}} for possible values and
-their interpretation.}
-
-\item{type}{1-character string giving the type of plot desired.  The
-    following values are possible, for details, see \code{\link{plot}}:
-    \code{"p"} for points, \code{"l"} for lines,
-    \code{"b"} for both points and lines,
-    \code{"c"} for empty points joined by lines,
-    \code{"o"} for overplotted points and lines,
-    \code{"s"} and \code{"S"} for stair steps and
-    \code{"h"} for histogram-like vertical lines.  Finally,
-    \code{"n"} does not produce any points or lines.}
-
-\item{ylim}{the y limits of the plot.}
-
-\item{plot_legend}{Logical. May be set to \code{FALSE} in order to specify a user-defined legend afterwards.}
-
-\item{paper}{the target paper size.  The choices are
-    \code{"a4"}, \code{"letter"}, \code{"legal"} (or \code{"us"}) and
-    \code{"executive"} (and these can be capitalized), or \code{"a4r"}
-    and \code{"USr"} for rotated (\sQuote{landscape}).
-    The default is \code{"special"}, which means that the \code{width}
-    and \code{height} specify the paper size.  A further choice is
-    \code{"default"}; if this is selected, the
-    papersize is taken from the option \code{"papersize"}
-    if that is set and as \code{"a4"} if it is unset or empty.
-    Defaults to \code{"special"}.
-  }
-
-\item{width}{the width and height of the graphics region in
-    inches.  The default values are \code{7}.}
-
-\item{...}{Other \link{graphical parameters} passed to \code{\link[graphics]{lines}} or \code{\link[graphics]{title}}.}
+\item{...}{Other parameters passed to---depending on \code{plottype}---\code{\link[ggplot2]{geom_col}}, \code{\link[ggplot2]{geom_point}}, \code{\link[ggplot2]{geom_boxplot}}, or \code{\link[ggplot2]{geom_violin}}.}
 }
 \description{
-This function takes as input the output from \code{\link{aggregate_eval}} and plots the results.
+This function takes as input a data frame from \code{\link{join_eval}} (or
+from \code{\link{sim_eval}}) and plots the results. Choose the type of plot
+using the argument \code{plottype}. Furhtermore,  decide how the different
+courses and the different topics should be represented in the plot using
+\code{course_as} and \code{topic_as}, namely, either on the x-axis, in
+different facets/panels, or using different colors/groups.
 }
 \examples{
 \dontrun{
-# dat.1 <- read_eval("./data/")    # read all files
-dat.1 <- sim_eval()                # simulated data
-res.1 <- aggregate_eval(dat.1)     # aggregate results for plotting
-
-# Default: Plot of four main scales with 95\% CI
-plot_eval(res.1)
-
-# Plot only the scale "Gesamt", with 90\% CI
-plot_eval(res.1, plottype = 2, CI = .9)
-
-# Plot all scales and save the plots in a pdf file
-plot_eval(res.1, plottype = 3, pdf = TRUE)
-
-# Plot a specific scale (#2) with user-defined parameters
-plot_eval(res.1, plottype = 4, subscale = 2, lwd = 2, lty = 2, col = "blue",
-    ylim = c(1, 6), ylab = "Scale", x_labels = paste0("Term_", 1:5))
-}
+tmp1 <- read_eval("./data")
+dat1 <- join_eval(tmp1)
 }
 
+# Simulate data
+dat1 <- sim_eval()
+
+plot_eval(dat1)
+
+plot_eval(dat1, plottype = "points", domains = 1)
+
+plot_eval(dat1, errorbar = FALSE)
+
+plot_eval(dat1, topics = c("Motivierung", "Note Dozent"), plottype = "boxplot")
+
+plot_eval(dat1, plottype = "points", topic_as = "x-axis", course_as = "group", add_line = TRUE)
+
+plot_eval(dat1, domains = 1:2, plottype = "violin", xvar_as_legend = TRUE,
+          control = list(title = "My Title")) +
+    ggplot2::theme_dark()
+}
