@@ -85,7 +85,34 @@ shinyUI(navbarPage(title = "Shiny InstevalR",
 
                 sliderInput("angle",
                             strong("Tick labels' angle"),
-                            0, 360, 30, 1)
+                            0, 360, 30, 1),
+
+                tags$hr(),
+
+                h5("Plot specifications for download"),
+
+                radioButtons(inputId = "var3", label = strong("Select the file type"), choices = list("pdf", "png"),
+                             selected = "pdf", inline = TRUE),
+
+                # sliderInput("width",
+                #             strong("Plot width (in inch)"),
+                #             1, 15, 8, .1),
+
+                sliderInput("height",
+                            strong("Plot height (in inch)"),
+                            1, 15, 5, .1),
+
+                selectInput("ratio", label = strong("Aspect ratio"),
+                            choices = list("2.414:1" = "2.414",
+                                           "1.618:1" = "1.618",
+                                           "3:2" = "1.5",
+                                           "4:3" = "1.333333",
+                                           "1:1" = "1",
+                                           "3:4" = "0.75",
+                                           "2:3" = "0.6666667",
+                                           "1:1.618" = "0.618047",
+                                           "1:2.414" = "0.4142502"),
+                            selected = "1.618")
             ),
 
             mainPanel(
@@ -98,10 +125,7 @@ shinyUI(navbarPage(title = "Shiny InstevalR",
                                      bsAlert("alert"),
                                      br(),
 
-                                     downloadButton("downPlot1", "Download current plot"),
-
-                                     radioButtons(inputId = "var3", label = strong("Select the file type"), choices = list("pdf", "png"),
-                                                  selected = "pdf", inline = TRUE)
+                                     downloadButton("downPlot1", "Download current plot")
                                      ),
                             tabPanel("Table", br(),
                                      DT::dataTableOutput("table1")
@@ -125,7 +149,15 @@ shinyUI(navbarPage(title = "Shiny InstevalR",
           "Shiny InstevalR to produce a handful of interesting plots."),
         p("This app was developed using",
           a("Shiny.", href="http://shiny.rstudio.com/", target="_blank")),
-        p("Feel free to contact the developer, Hansjörg Plieninger, at plieninger[a]uni-mannheim.de for questions, comments, bug reports, or feature requests."),
+        p("Feel free to contact the developer, Hansjörg Plieninger, at",
+          a("GitHub.", href="https://github.com/hplieninger/instevalR/issues", target="_blank"),
+          "or at plieninger[a]uni-mannheim.de for questions, comments, bug reports, or feature requests."),
+
+        strong("instevalR"),
+
+        p("Shiny InstevalR is part of the R package", strong("instevalR"), "that is available from",
+          a("GitHub.", href="https://github.com/hplieninger/instevalR", target="_blank"),
+          "You may use this package to run instevalR locally and to fine-tune the plots."),
 
         # br(),
         #

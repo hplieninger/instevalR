@@ -27,7 +27,7 @@ shinyServer(function(input, output, session) {
         if (input$sim == TRUE) {
             shinyjs::disable("names")
             closeAlert(session, "welcome_alert")
-            return(sim_eval(lang = input$lang))
+            return(sim_eval(N_files = 3, N_id = 25, lang = input$lang))
         } else if (!is.null(input$files)) {
             closeAlert(session, "welcome_alert")
 
@@ -57,12 +57,13 @@ shinyServer(function(input, output, session) {
         } else {
             createAlert(session, "welcome", "welcome_alert", title = "Welcome to Shiny InstevalR",
                         # content = "foo",
-                        content = "<p style='font-size:120%;text-align:justify'> This shiny app can be used to plot several course evaluations from InstEvaL.</p>
-                                   <p style='font-size:120%;text-align:justify'> Please download the raw data of your course evaluations
+                        content = "<p style='font-size:110%;text-align:justify'> This shiny app can be used to plot several course evaluations from InstEvaL.</p>
+                                   <p style='font-size:110%;text-align:justify'> Please download the raw data of your course evaluations
                                       (log in to  <a href='https://insteval.uni-mannheim.de/'>InstEvaL</a> &rArr; Results &rArr; Raw data; the CSV-files have names ending with 'evaluationen.csv').
                                       Next, you can upload your files using the Browse-Button on the left.</p>
-                                   <p style='font-size:120%;text-align:justify'> Alternatively, you may use random data using the 'Simulate Data'-checkbox on the left.</p>
-                                   <p style='font-size:120%;text-align:justify'> Furthermore, instead of using this app, you may also use instevalR locally, which will give you even more control over the plot.</p>",
+                                   <p style='font-size:110%;text-align:justify'> Alternatively, you may use random data using the 'Simulate Data'-checkbox on the left.</p>
+                                   <p style='font-size:110%;text-align:justify'> Furthermore, instead of using this app, you may also use instevalR locally,
+                                      which will give you even more control over the plot; see <a href='https://github.com/hplieninger/instevalR'>https://github.com/hplieninger/instevalR</a>.</p>",
                         style = "primary")
             return(NULL)
         }
@@ -137,6 +138,14 @@ shinyServer(function(input, output, session) {
             }
         })
 
+        observe({
+            if (input$xvar_as_legend == TRUE) {
+                shinyjs::disable("angle")
+            } else {
+                shinyjs::enable("angle")
+            }
+        })
+
         plot_eval(data = dat_1(),
                   plottype = input$plottype,
                   errorbar = input$errorbar,
@@ -187,10 +196,12 @@ shinyServer(function(input, output, session) {
             paste("Shiny InstevalR", input$var3, sep = ".")
         },
         content = function(file) {
+            ht <- as.numeric(input$height)
+            wd <- as.numeric(input$height)*as.numeric(input$ratio)
             if (input$var3 == "png")
-                png(file)
+                png(file, units = "in", width = wd, height = ht, res = 600)
             else
-                cairo_pdf(file)
+                cairo_pdf(file, width = wd, height = ht)
             print(plot1())
             dev.off()
         }
