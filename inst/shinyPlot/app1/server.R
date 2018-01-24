@@ -34,33 +34,49 @@ shinyServer(function(input, output, session) {
             shinyjs::enable("names")
             inFile <- input$files
 
-            if (!all(tools::file_ext(inFile$datapath) %in% c("csv", "xls", "xlsx"))) {
+            if (any(!tools::file_ext(inFile$datapath) %in% c("csv", "xls", "xlsx"))) {
                 createAlert(session, "file_error", title = "Error",
-                            # content = "foo",
                             content = "Please upload only files with extensions csv, xls, or xlsx.",
                             style = "danger")
                 return(NULL)
+            }
+
+            x0 <- grepl(paste(c("kommentare", "fragen"), collapse = "|"),
+                        x = inFile$name)
+
+            inFile <- inFile[!x0, ]
+
+            if (any(x0)) {
+                createAlert(session, "file_error", title = "Error",
+                            content = paste0("Ignoring the following files:<br>",
+                                             paste0(input$files[x0, "name"], collapse = "<br>")),
+                            style = "danger")
+                # return(NULL)
             }
 
             tmp1 <- trimws(unlist(strsplit(input$names, ";")))
             tmp1 <- tmp1[!(tmp1 == "")]
             if (length(tmp1) == nrow(inFile)) {
                 tmp_names <- tmp1
+            } else if (all(grepl("^InstEvaL-Rohdaten-vlg", inFile$name))) {
+                    tmp_names <- regmatches(inFile$name, regexpr("\\d+", inFile$name))
             } else {
-                tmp_names <- inFile$name
+                    tmp_names <- sub(".csv$|.xlsx$|.xls$", "", inFile$name)
             }
 
             tmp2 <- read_eval(inFile$datapath, names = tmp_names, shiny = TRUE)
 
-            dat <- join_eval(tmp2, lang = input$lang, names = tmp_names)
+            dat <- join_eval(tmp2, lang = input$lang
+                             # , names = tmp_names
+                             )
             return(dat)
         } else {
             createAlert(session, "welcome", "welcome_alert", title = "Welcome to Shiny InstevalR",
                         # content = "foo",
                         content = "<p style='font-size:110%;text-align:justify'> This shiny app can be used to plot several course evaluations from InstEvaL.</p>
-                                   <p style='font-size:110%;text-align:justify'> Please download the raw data of your course evaluations
+                                   <p style='font-size:110%;text-align:justify'> First, <strong>please download the raw data of your course evaluations</strong>
                                       (log in to  <a href='https://insteval.uni-mannheim.de/'>InstEvaL</a> &rArr; Results &rArr; Raw data; the CSV-files have names ending with 'evaluationen.csv').
-                                      Next, you can upload your files using the Browse-Button on the left.</p>
+                                      Second, you can upload your files using the Browse-Button on the left.</p>
                                    <p style='font-size:110%;text-align:justify'> Alternatively, you may use random data using the 'Simulate Data'-checkbox on the left.</p>
                                    <p style='font-size:110%;text-align:justify'> Furthermore, instead of using this app, you may also use instevalR locally,
                                       which will give you even more control over the plot; see <a href='https://github.com/hplieninger/instevalR'>https://github.com/hplieninger/instevalR</a>.</p>",

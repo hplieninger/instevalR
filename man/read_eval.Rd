@@ -8,10 +8,10 @@ read_eval(path = NULL, names = NULL, pattern = NULL, recursive = FALSE,
   shiny = FALSE)
 }
 \arguments{
-\item{path}{If \code{NULL}, the user is prompted to choose the files
+\item{path}{If \code{NULL}, the user is prompted to choose the file(s)
 interactively; this is only available on Windows. Otherwise, a character
 vector containing path name(s), pointing to the CSV-files. The files
-probably have names ending with "evaluationen.csv". Make sure to put only
+probably have names ending with "evaluationen.csv". It's safer to put only
 those files in the directory and no other files.}
 
 \item{names}{Optional character vector supplying the names of the courses.

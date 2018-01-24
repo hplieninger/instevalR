@@ -33,6 +33,7 @@ If you're unfamiliar with R, you may find the shiny app useful which you can run
 ``` r
 library("instevalR")                             # load in every new R session
 shiny_eval()                                     # interactive shiny app
+
 dat1 <- sim_eval()                               # simulate data   
 plot_eval(dat1)                                  # plot
 datatable_eval(dat1)

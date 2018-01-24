@@ -7,3 +7,4 @@ R/plot_eval_old.txt
 data-raw/labels_umlaut.csv
 inst/shinyPlot/app1/rsconnect
 tests/testthat/Rplots.pdf
+README_cache

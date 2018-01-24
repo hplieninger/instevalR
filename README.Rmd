@@ -20,7 +20,7 @@ knitr::opts_chunk$set(
 
 The R package `instevalR` and the app [Shiny InstevalR](https://hplieninger.shinyapps.io/ShinyInstevalR/) are useful for people doing course evaluations (at universities, e.g., U Mannheim) with the software [InstEvaL](https://insteval.uni-mannheim.de). The package has functions to combine the results of several course evaluations (e.g., different courses/cohorts of a single instructor) and to plot those results:
 
-```{r example-plot, eval=T, echo=F, fig.align='center', out.width='67%', dpi = 150}
+```{r example-plot, eval=T, echo=F, fig.align='center', out.width='67%', dpi = 150, cache = TRUE}
 library("instevalR")
 set.seed(123456)
 dat1 <- sim_eval(N_files = 3, N_id = 100)
@@ -55,6 +55,7 @@ If you're unfamiliar with R, you may find the shiny app useful which you can run
 ```{r, echo = T, eval = F}
 library("instevalR")                             # load in every new R session
 shiny_eval()                                     # interactive shiny app
+
 dat1 <- sim_eval()                               # simulate data   
 plot_eval(dat1)                                  # plot
 datatable_eval(dat1)
