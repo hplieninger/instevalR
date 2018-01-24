@@ -29,7 +29,7 @@ args <- expand.grid(plottype = c("points", "boxplot", "violin", "barplot"),
                       KEEP.OUT.ATTRS = F,
                       stringsAsFactors = F))
 
-args[args$plottype == "violin", "errorbar"] <- sample(c(T, F))
+args[args$plottype == "violin", "errorbar"]  <- FALSE
 args[args$plottype == "boxplot", "errorbar"] <- FALSE
 
 args <- args[!duplicated(args), ]
@@ -49,11 +49,11 @@ test_that("'plot_eval' returns a ggplot object", {
                         # , control = list(ylim = NULL,
                         #                  alpha = .9, size = 2)
         )
-        # expect_true(ggplot2::is.ggplot(p1), label =
-        #                 paste0("is.ggplot(plot_eval()) with arguments ", paste(names(args), args[ii, ], sep = " = ", collapse = ", "))
-        # )
+        expect_is(p1, "ggplot", label =
+                      paste0("class of plot_eval() with arguments ", paste(names(args), args[ii, ], sep = " = ", collapse = ", "), "   ")
+        )
         expect_error(suppressMessages(suppressWarnings(print(p1))), NA, label =
-                         paste0("print(plot_eval()) with arguments ", paste(names(args), args[ii, ], sep = " = ", collapse = ", "))
+                         paste0("print(plot_eval()) with arguments ", paste(names(args), args[ii, ], sep = " = ", collapse = ", "), "   ")
         )
         # suppressMessages(suppressWarnings(print(p1)))
     }

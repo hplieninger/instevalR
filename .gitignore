@@ -6,3 +6,4 @@ inst/labels_umlaut.csv
 R/plot_eval_old.txt
 data-raw/labels_umlaut.csv
 inst/shinyPlot/app1/rsconnect
+tests/testthat/Rplots.pdf
