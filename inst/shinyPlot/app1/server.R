@@ -76,6 +76,13 @@ shinyServer(function(input, output, session) {
                        multiple = TRUE)
     })
 
+    output$course_list <- renderUI({
+        tmp1 <- levels(dat_1()$course)
+        selectizeInput("courses", strong("Courses to plot"),
+                       choices = tmp1,
+                       multiple = TRUE)
+    })
+
     ##### table #####
 
     output$table1 <- DT::renderDataTable({
@@ -148,6 +155,7 @@ shinyServer(function(input, output, session) {
 
         plot_eval(data = dat_1(),
                   plottype = input$plottype,
+                  courses = input$courses,
                   errorbar = input$errorbar,
                   course_as = course_as,
                   topic_as  = topic_as,

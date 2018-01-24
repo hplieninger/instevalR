@@ -5,16 +5,19 @@
 \title{Plot multiple course evalautions}
 \usage{
 plot_eval(data = NULL, plottype = c("barplot", "points", "boxplot",
-  "violin"), domains = 2, topics = NULL, topic_as = c("facet", "group",
-  "x-axis"), course_as = c("x-axis", "facet", "group"), add_line = FALSE,
-  errorbar = TRUE, CI = 0.95, grey = FALSE, lang = NULL,
-  xvar_as_legend = FALSE, control = list(), ...)
+  "violin"), courses = NULL, domains = 2, topics = NULL,
+  topic_as = c("facet", "group", "x-axis"), course_as = c("x-axis", "facet",
+  "group"), add_line = FALSE, errorbar = TRUE, CI = 0.95, grey = FALSE,
+  lang = NULL, xvar_as_legend = FALSE, control = list(), ...)
 }
 \arguments{
 \item{data}{Data frame as returned from \code{\link{join_eval}} (or from
 \code{\link{sim_eval}}).}
 
 \item{plottype}{Character, either \code{"barplot"}, \code{"points"}, \code{"boxplot"}, or \code{"violin"}.}
+
+\item{courses}{Optional character vector of length >= 1. Used to select a
+subset of courses present in \code{data$course}.}
 
 \item{domains}{Numeric of length >= 1, specifying the domains to plot.
 \itemize{
@@ -26,7 +29,7 @@ plot_eval(data = NULL, plottype = c("barplot", "points", "boxplot",
  \item{6: Misc}
 }}
 
-\item{topics}{Character vector of length >= 1, optional. Used to select a
+\item{topics}{Optional character vector of length >= 1. Used to select a
 subset of topics present in \code{data$topic}, e.g., \code{topics =
 c("Overall", "Motivation")}. Overrides argument \code{domains}.}
 
@@ -93,7 +96,7 @@ plot_eval(dat1)
 
 plot_eval(dat1, plottype = "points", domains = 1)
 
-plot_eval(dat1, errorbar = FALSE)
+plot_eval(dat1, courses = c("Course1", "Course3"), errorbar = FALSE)
 
 plot_eval(dat1, topics = c("Motivierung", "Note Dozent"), plottype = "boxplot")
 

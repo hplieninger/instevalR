@@ -10,6 +10,8 @@
 #' @param data Data frame as returned from \code{\link{join_eval}} (or from
 #'   \code{\link{sim_eval}}).
 #' @param plottype Character, either \code{"barplot"}, \code{"points"}, \code{"boxplot"}, or \code{"violin"}.
+#' @param courses Optional character vector of length >= 1. Used to select a
+#'   subset of courses present in \code{data$course}.
 #' @param domains Numeric of length >= 1, specifying the domains to plot.
 #' \itemize{
 #'  \item{1: Overall (one scale, namely, average of \code{domains = 2})}
@@ -19,7 +21,7 @@
 #'  \item{5: Students' presentations}
 #'  \item{6: Misc}
 #' }
-#' @param topics Character vector of length >= 1, optional. Used to select a
+#' @param topics Optional character vector of length >= 1. Used to select a
 #'   subset of topics present in \code{data$topic}, e.g., \code{topics =
 #'   c("Overall", "Motivation")}. Overrides argument \code{domains}.
 #' @param course_as Character. Should each course/file be plotted using a
@@ -72,7 +74,7 @@
 #'
 #' plot_eval(dat1, plottype = "points", domains = 1)
 #'
-#' plot_eval(dat1, errorbar = FALSE)
+#' plot_eval(dat1, courses = c("Course1", "Course3"), errorbar = FALSE)
 #'
 #' plot_eval(dat1, topics = c("Motivierung", "Note Dozent"), plottype = "boxplot")
 #'
@@ -83,6 +85,7 @@
 #'     ggplot2::theme_dark()
 plot_eval <- function(data = NULL,
                       plottype = c("barplot", "points", "boxplot", "violin"),
+                      courses = NULL,
                       domains = 2,
                       topics = NULL,
                       topic_as = c("facet", "group", "x-axis"),
@@ -159,6 +162,9 @@ plot_eval <- function(data = NULL,
     if (!all(c("course", "topic", "domain", "score") %in% names(DATA))) {
         stop("'data' must contain the columns 'course', 'topic', 'domain', and 'score'.")
     }
+    if (!is.null(courses)) {
+        courses <- match.arg(courses, several.ok = TRUE, choices = levels(DATA$course))
+    }
     checkmate::assert_integerish(domains, lower = 1, upper = 6, max.len = 6,
                                  null.ok = TRUE)
     if (!checkmate::test_subset(as.integer(domains), unique(DATA$domain))) {
@@ -189,6 +195,11 @@ plot_eval <- function(data = NULL,
     }
 
     ##### data #####
+
+    if (!is.null(courses)) {
+        DATA <- dplyr::filter(DATA, .data$course %in% rlang::UQ(courses))
+        DATA <- droplevels(DATA)
+    }
 
     if (is.null(topics)) {
         DATA <- dplyr::filter(DATA, .data$domain %in% rlang::UQ(domains))

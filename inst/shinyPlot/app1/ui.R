@@ -32,6 +32,8 @@ shinyUI(navbarPage(title = "Shiny InstevalR",
 
                 checkboxInput("sim", "Simulate Data", FALSE),
 
+                uiOutput("course_list"),
+
                 tags$hr(),
 
                 selectInput("domains", label = strong("Domain to plot"),
