@@ -12,6 +12,9 @@ read_raw(file)
 \value{
 Data frame
 }
+\description{
+Read file into data frame and perform some checks
+}
 \seealso{
 \code{\link[utils]{read.table}}
  \code{\link[readxl]{read_excel}}

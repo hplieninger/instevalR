@@ -124,7 +124,10 @@ read_eval <- function(path = NULL,
     }
 }
 
-#' @title Read from CSV or excel file
+#' Read from CSV or excel file
+#'
+#' Read file into data frame and perform some checks
+#'
 #' @param file Character. The name of the file
 #' @return Data frame
 #' @seealso
