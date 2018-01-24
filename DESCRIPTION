@@ -20,10 +20,10 @@ Imports:
     dplyr,
     ggplot2,
     rlang,
-    magrittr
+    magrittr,
+    readxl
 RoxygenNote: 6.0.1
 Suggests: 
-    readxl,
     shiny,
     shinyAce,
     ggthemes,
