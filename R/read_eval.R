@@ -71,11 +71,11 @@ read_eval <- function(path = NULL,
                                 null.ok = TRUE)
     if (!is.null(names)) {
         file_names <- names
-    } else if (all(grepl("^InstEvaL-Rohdaten-vlg", files))) {
+    } else if (all(grepl("^InstEvaL-Rohdaten-vlg", basename(files)))) {
         # file_names <- substr(files, start = 23, stop = 1000) %>%
         #     sub("-evaluationen.csv", "", x = .) %>%
         #     as.numeric
-        file_names <- as.numeric(regmatches(basename(files), regexpr("\\d+", files)))
+        file_names <- as.numeric(regmatches(basename(files), regexpr("\\d+", basename(files))))
     } else {
         file_names <- sub(".csv$", "", basename(files))
     }
